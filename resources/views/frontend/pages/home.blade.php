@@ -1,0 +1,11 @@
+@extends('frontend.layouts.app')
+@section('title','Home')
+@section('content')
+    @include('frontend.sections.home.banner')
+    @include('frontend.sections.home.pimpinan')
+    @include('frontend.sections.home.team')
+    @include('frontend.sections.home.berita')
+    @include('frontend.sections.home.galleries')
+    @include('frontend.sections.home.ikm')
+    @include('frontend.sections.home.pengunjung')
+@endsection
