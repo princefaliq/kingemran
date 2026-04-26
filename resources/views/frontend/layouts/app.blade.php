@@ -555,8 +555,8 @@
                 <div class="divider-style-03 divider-style-03-01 border-color-light-gray"></div>
             </div>
             <div class="col-5 col-lg-2 col-sm-3 text-center position-relative">
-                <img src="images/demo-spa-salon-home-13.png" class="animation-rotation" alt="">
-                <div class="absolute-middle-center lg-w-75"><img src="https://placehold.co/150x150" alt=""></div>
+                <img src="web/images/demo-spa-salon-home-13.png" class="animation-rotation" alt="">
+                <div class="absolute-middle-center lg-w-75"><img src="/favicon.png" alt=""></div>
             </div>
             <div class="col">
                 <div class="divider-style-03 divider-style-03-01 border-color-light-gray"></div>
@@ -655,7 +655,7 @@
 <footer class="half-footer pb-45px border-top border-color-light-gray background-repeat" style="background-image:url('/images/bg.png');">
     <div class="container">
         <div class="overlap-section position-absolute left-0px right-0px text-center d-none d-md-inline-block" data-anime='{ "el": "childs", "translateY": [0, 0], "scale": [0.7, 1], "rotateZ": [50, 0], "opacity": [0,1], "duration": 800, "delay": 200, "staggervalue": 300, "easing": "easeOutQuad" }'>
-            <img src="https://placehold.co/280x280" alt="" class="lg-w-20">
+            <img src="favicon.png" alt="" class="lg-w-20 h-280px">
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-6 last-paragraph-no-margin me-auto z-index-1 text-center text-sm-start xs-mb-20px">
