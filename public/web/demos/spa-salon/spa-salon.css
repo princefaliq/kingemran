@@ -5,15 +5,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Rufina:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap');
 /* variable */
-:root {     
-    --base-color: #fb7d61;
-    --very-light-gray:#EEE8E6;
-    --dark-gray:#36332e;
-    --medium-gray: #858181;
-    --light-medium-gray: #f8f3f0;
+:root {
+    --base-color: #B8863B;
+    --very-light-gray:#F5F0E8;
+    --dark-gray:#2B241C;
+    --medium-gray: #8C7B68;
+    --light-medium-gray: #D4AF37;
     --alt-font: 'Rufina', serif;
     --primary-font: 'Jost', sans-serif;
-} 
+}
 /* reset */
 body, html {
     overflow-x: hidden;
@@ -69,15 +69,15 @@ h4 {
     letter-spacing: 1.5px;
     font-weight: 600;
 }
-.btn.btn-double-border.btn-border-base-color { 
-    color: var(--dark-gray); 
+.btn.btn-double-border.btn-border-base-color {
+    color: var(--dark-gray);
 }
 .btn.btn-double-border.btn-border-base-color:after {
-    border-color: var(--base-color); 
+    border-color: var(--base-color);
     transition: 0.3s ease;
 }
 /* bg gradient color */
-.bg-gradient-nero-grey-brown { 
+.bg-gradient-nero-grey-brown {
     background-image: linear-gradient(to right, #191919, #1c1a1d, #211b20, #261c21, #2c1d20);
 }
 .bg-base-color-transparent {
@@ -97,13 +97,13 @@ h4 {
 /* slider custom text */
 .swiper-button-prev.slider-custom-text-prev,
 .swiper-button-next.slider-custom-text-next {
-    border-color: #DCD7D4; 
+    border-color: #DCD7D4;
 }
 .hover-box.dark-hover:hover .text-light-opacity {
     opacity: 0.5;
 }
 .services-box-style-02:hover img{
-    -webkit-transform: scale(1.1); 
+    -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
 .large-icon li {
@@ -131,18 +131,18 @@ h4 {
     padding-left: 0;
 }
 .tab-style-08 ul .nav-item {
-    border-color: #DCD7D4;  
+    border-color: #DCD7D4;
 }
 .tab-style-08 ul .nav-item .nav-link, .tab-style-08 ul .nav-item .nav-link.active, .tab-style-08 ul .nav-item .nav-link:hover {
     color: var(--dark-gray);
 }
 /* map style */
-.arrow_box.marker02:after { 
+.arrow_box.marker02:after {
     width: 65px;
     height: 80px;
-    background: url("../../images/demo-spa-salon-contact-map-icon.png") left center no-repeat; 
+    background: url("../../images/demo-spa-salon-contact-map-icon.png") left center no-repeat;
     left: -22px;
-    top: -60px; 
+    top: -60px;
 }
 /* footer */
 footer .elements-social .medium-icon li a {
@@ -172,7 +172,7 @@ footer.half-footer {
 }
 @media (max-width: 991px) {
     header .navbar-brand,
-    header.sticky .fixed-header .navbar-brand, 
+    header.sticky .fixed-header .navbar-brand,
     header.sticky .disable-fixed .navbar-brand{
         padding: 15px 0;
     }
