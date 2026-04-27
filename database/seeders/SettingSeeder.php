@@ -14,9 +14,10 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            'pimpinan_nama' => 'Ahmad Fauzi',
-            'pimpinan_foto' => null,
-            'pimpinan_sambutan' => null,
+            'motto' => 'Relax at the luxury spa massage and therapy studio.',
+            'foto_spa_1' => null,
+            'foto_spa_2' => null,
+            'about' => null,
 
             'kontak_telepon' => '08123456789',
             'kontak_email' => 'info@dinas.go.id',

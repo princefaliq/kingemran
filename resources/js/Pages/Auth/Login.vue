@@ -65,7 +65,7 @@ onUnmounted(() => {
                 <div class="d-flex flex-center flex-lg-start flex-column">
                     <!--begin::Logo-->
                     <a href="/" class="mb-7">
-                        <img alt="Logo" src="/diskominfo.png" style="max-width:20%"/>
+                        <img alt="Logo" src="/favicon.png" style="max-width:20%"/>
                     </a>
                     <!--end::Logo-->
                     <!--begin::Title-->

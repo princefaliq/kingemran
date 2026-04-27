@@ -6,11 +6,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700;800;900&display=swap');
 /* variable */
 :root {
-    --base-color: #B8863B;
-    --very-light-gray:#F5F0E8;
-    --dark-gray:#2B241C;
-    --medium-gray: #8C7B68;
-    --light-medium-gray: #D4AF37;
+    /* PRIMARY (GOLD) */
+    --base-color: #D4AF37;          /* gold utama */
+    --gold-light: #F1D27A;          /* gold highlight */
+
+    /* BACKGROUND */
+    --dark-gray: #ffc107;           /* hitam utama */
+    --medium-gray: #1A1A1A;         /* section */
+
+    /* TEXT */
+    --text-primary: #F5F0E8;        /* text utama (cream) */
+    --text-muted: #A89F91;          /* text sekunder */
+
+    /* OPTIONAL UI */
+    --border-soft: #2A2A2A;         /* garis halus */
+    --card-bg: #141414;             /* card background */
+
+    /* FONT */
     --alt-font: 'Rufina', serif;
     --primary-font: 'Jost', sans-serif;
 }

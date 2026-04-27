@@ -2,12 +2,12 @@
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-    <title>@yield('title', 'Home')</title>
+    <title>@yield('title', 'Home') - {{ config('app.name') }}</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="Afi">
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta name="description" content="Website resmi {{ config('app.name') }} Kabupaten Bondowoso">
+    <meta name="description" content="Website resmi {{ config('app.name') }}">
     <!-- favicon icon -->
     <link rel="shortcut icon" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
@@ -20,7 +20,7 @@
         <meta property="og:type" content="Website"/>
         <meta property="og:url" content="{{ url('/') }}"/>
         <meta property="og:image" content="{{ url('/') }}/favicon.png"/>
-        <meta property="og:description" content="Website resmi {{ config('app.name') }} Kabupaten Bondowoso"/>
+        <meta property="og:description" content="Website resmi {{ config('app.name') }}"/>
         <meta property="og:image:type" content="image/jpeg"/>
         <meta property="og:image:width" content="400"/>
         <meta property="og:image:height" content="400"/>
@@ -43,239 +43,27 @@
 
         gtag('config', 'G-4GLR97Q4PK');
     </script>
+    <style>
+        body {
+            color: var(--very-light-gray);
+        }
+    </style>
     @stack('css')
 </head>
 <body class="overflow-x-hidden" data-mobile-nav-style="classic">
 <!-- start header -->
-<header>
-    <!-- start navigation -->
-    <nav class="navbar navbar-expand-lg header-transparent bg-transparent center-logo disable-fixed">
-        <div class="container-fluid">
-            <div class="col-auto col-lg-2 menu-logo">
-                <div class="d-none d-lg-block">
-                    <a href="tel:1800222000" class="widget-text text-white-hover fs-16 lg-fs-15"><i class="feather icon-feather-phone icon-small me-5px lg-me-2px"></i>1 800 222 000</a>
-                </div>
-                <a class="navbar-brand" href="demo-spa-salon.html">
-                    <img src="favicon.png" data-at2x="favicon.png" alt="" class="default-logo">
-                    <img src="favicon.png" data-at2x="favicon.png" alt="" class="alt-logo">
-                    <img src="favicon.png" data-at2x="favicon.png" alt="" class="mobile-logo">
-                </a>
-            </div>
-            <div class="col-auto col-lg-8 menu-order">
-                <button class="navbar-toggler float-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-line"></span>
-                    <span class="navbar-toggler-line"></span>
-                    <span class="navbar-toggler-line"></span>
-                    <span class="navbar-toggler-line"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                    <ul class="navbar-nav navbar-left justify-content-end">
-                        <li class="nav-item"><a href="demo-spa-salon.html" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="demo-spa-salon-about.html" class="nav-link">About</a></li>
-                        <li class="nav-item"><a href="demo-spa-salon-treatments.html" class="nav-link">Treatments</a></li>
-                    </ul>
-                    <ul class="navbar-nav navbar-right justify-content-start">
-                        <li class="nav-item"><a href="demo-spa-salon-packages.html" class="nav-link">Packages</a></li>
-                        <li class="nav-item"><a href="demo-spa-salon-facility.html" class="nav-link">Facility</a></li>
-                        <li class="nav-item"><a href="demo-spa-salon-contact.html" class="nav-link">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-auto col-lg-2 text-end">
-                <div class="header-icon">
-                    <div class="header-social-icon icon">
-                        <a href="http://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="http://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="http://www.twitter.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+@include('frontend.partials.navbar')
 <!-- end header -->
-<!-- start banner slider -->
-<section class="p-0 bg-base-color">
-    <div class="swiper full-screen ipad-top-space-margin md-h-600px sm-h-500px swiper-number-pagination-style-01 magic-cursor drag-cursor base-color" data-slider-options='{ "slidesPerView": 1, "loop": true, "pagination": { "el": ".swiper-number", "clickable": true }, "navigation": { "nextEl": ".slider-one-slide-next-1", "prevEl": ".slider-one-slide-prev-1" }, "autoplay": { "delay": 5000, "disableOnInteraction": false },  "keyboard": { "enabled": true, "onlyInViewport": true }, "effect": "fade" }' data-number-pagination="1" data-anime-text='{ "translateY": [50,0], "opacity": [0,1], "easing": "easeOutQuad", "duration": 500, "delay": { "staggervalue": 20 } }'>
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="position-absolute left-0px top-0px w-100 h-100 cover-background" style="background-image:url('https://placehold.co/1920x1080');" data-anime='{ "translateY": [0, 0], "opacity": [1,1], "scale": [1,1.1], "duration": 7000, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'></div>
-                <div class="opacity-light bg-gradient-nero-grey-brown"></div>
-                <div class="container h-100">
-                    <div class="row align-items-center h-100 justify-content-center">
-                        <div class="col-xl-8 col-lg-9 position-relative text-white text-center">
-                            <span class="fs-15 d-block mb-15px ls-4px text-uppercase" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "duration": 500, "delay": 200 }'>Unforgettable treat</span>
-                            <div class="alt-font fs-80 sm-fs-60 xs-fs-50 mb-40px w-80 lg-w-100 md-w-90 sm-w-100 mx-auto sm-mb-35px anime-text ls-minus-2px" data-fancy-text='{ "opacity": [0, 1], "translateY": [50, 0], "string": ["Relax your mind soul and body"], "duration": 500, "delay": 200, "speed": 10, "easing": "easeOutQuad" }'></div>
-                            <a href="demo-spa-salon-contact.html" class="btn btn-medium fw-500 btn-double-border btn-border-color-transparent-white" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "delay": 800, "duration": 800 }'>
-                                        <span>
-                                            <span class="btn-double-text" data-text="Book appointment">Book appointment</span>
-                                        </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="position-absolute left-0px top-0px w-100 h-100 cover-background" style="background-image:url('https://placehold.co/1920x1080');" data-anime='{ "translateY": [0, 0], "opacity": [1,1], "scale": [1,1.1], "duration": 7000, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'></div>
-                <div class="opacity-light bg-gradient-nero-grey-brown"></div>
-                <div class="container h-100">
-                    <div class="row align-items-center h-100 justify-content-center">
-                        <div class="col-xl-8 col-lg-9 position-relative text-white text-center">
-                            <span class="fs-15 d-block mb-15px ls-4px text-uppercase" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "duration": 500, "delay": 200 }'>Ayurvedic treatments</span>
-                            <div class="alt-font fs-80 sm-fs-60 xs-fs-50 mb-40px w-80 lg-w-100 md-w-90 sm-w-100 mx-auto sm-mb-35px anime-text ls-minus-2px" data-fancy-text='{ "opacity": [0, 1], "translateY": [50, 0], "string": ["Help for your mind relaxing"], "duration": 500, "delay": 200, "speed": 10, "easing": "easeOutQuad" }'></div>
-                            <a href="demo-spa-salon-contact.html" class="btn btn-medium fw-500 btn-double-border btn-border-color-transparent-white" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "delay": 800, "duration": 800 }'>
-                                        <span>
-                                            <span class="btn-double-text" data-text="Book appointment">Book appointment</span>
-                                        </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="position-absolute left-0px top-0px w-100 h-100 cover-background" style="background-image:url('https://placehold.co/1920x1080');" data-anime='{ "translateY": [0, 0], "opacity": [1,1], "scale": [1,1.1], "duration": 7000, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'></div>
-                <div class="opacity-light bg-gradient-nero-grey-brown"></div>
-                <div class="container h-100">
-                    <div class="row align-items-center h-100 justify-content-center">
-                        <div class="col-xl-8 col-lg-9 position-relative text-white text-center">
-                            <span class="fs-15 d-block mb-15px ls-4px text-uppercase" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "duration": 500, "delay": 200 }'>Therapy packages</span>
-                            <div class="alt-font fs-80 sm-fs-60 xs-fs-50 mb-40px w-80 lg-w-100 md-w-90 sm-w-100 mx-auto sm-mb-35px anime-text ls-minus-2px" data-fancy-text='{ "opacity": [0, 1], "translateY": [50, 0], "string": ["Therapy for rest and relaxation"], "duration": 500, "delay": 200, "speed": 10, "easing": "easeOutQuad" }'></div>
-                            <a href="demo-spa-salon-contact.html" class="btn btn-medium fw-500 btn-double-border btn-border-color-transparent-white" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "delay": 800, "duration": 800 }'>
-                                        <span>
-                                            <span class="btn-double-text" data-text="Book appointment">Book appointment</span>
-                                        </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- start slider pagination -->
-        <div class="swiper-pagination container right-0px text-center swiper-pagination-clickable swiper-number fs-14 xs-w-100"></div>
-        <!-- end slider pagination -->
-        <!-- start slider navigation -->
-        <div class="slider-one-slide-prev-1 icon-very-small text-white swiper-button-prev slider-navigation-style-06 bg-black-transparent-light h-55px w-55px d-none d-sm-flex border-radius-100"><i class="fa-solid fa-chevron-left"></i></div>
-        <div class="slider-one-slide-next-1 icon-very-small text-white swiper-button-next slider-navigation-style-06 bg-black-transparent-light h-55px w-55px d-none d-sm-flex border-radius-100"><i class="fa-solid fa-chevron-right"></i></div>
-        <!-- end slider navigation -->
-    </div>
-</section>
-<!-- end banner slider -->
-<!-- start section -->
-<section class="pt-60px pb-60px background-repeat border-bottom border-color-light-gray" style="background-image:url('/images/bg.png');">
-    <div class="container-fluid ps-9 pe-9 lg-ps-1 lg-pe-1 md-ps-15px md-pe-15px">
-        <div class="row row-cols-1 row-cols-lg-4 row-cols-sm-2 justify-content-center" data-anime='{ "el": "childs", "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 100, "easing": "easeOutQuad" }'>
-            <!-- start features box item -->
-            <div class="col icon-with-text-style-03 border-end border-color-light-gray md-mb-30px xs-border-end-0">
-                <div class="feature-box ps-8 pe-8 xl-ps-2 xl-pe-2">
-                    <div class="feature-box-icon">
-                        <i class="line-icon-Medal-2 icon-extra-large text-base-color mb-20px"></i>
-                    </div>
-                    <div class="feature-box-content last-paragraph-no-margin">
-                        <span class="d-inline-block text-dark-gray alt-font fs-22">Ultra luxury studio</span>
-                        <p class="lh-26">Modern infrastructure</p>
-                    </div>
-                </div>
-            </div>
-            <!-- end features box item -->
-            <!-- start features box item -->
-            <div class="col icon-with-text-style-03 border-end border-color-light-gray md-mb-30px md-border-end-0">
-                <div class="feature-box ps-8 pe-8 xl-ps-2 xl-pe-2">
-                    <div class="feature-box-icon">
-                        <i class="line-icon-Moustache-Smiley icon-extra-large text-base-color mb-20px"></i>
-                    </div>
-                    <div class="feature-box-content last-paragraph-no-margin">
-                        <span class="d-inline-block text-dark-gray alt-font fs-22">Certified manpower</span>
-                        <p class="lh-26">Amazing experience</p>
-                    </div>
-                </div>
-            </div>
-            <!-- end features box item -->
-            <!-- start features box item -->
-            <div class="col icon-with-text-style-03 border-end border-color-light-gray xs-border-end-0 xs-mb-30px">
-                <div class="feature-box ps-8 pe-8 xl-ps-2 xl-pe-2">
-                    <div class="feature-box-icon">
-                        <i class="line-icon-Tree-3 icon-extra-large text-base-color mb-20px"></i>
-                    </div>
-                    <div class="feature-box-content last-paragraph-no-margin">
-                        <span class="d-inline-block text-dark-gray alt-font fs-22">Natural environment</span>
-                        <p class="lh-26">Unwind and discover joy</p>
-                    </div>
-                </div>
-            </div>
-            <!-- end features box item -->
-            <!-- start features box item -->
-            <div class="col icon-with-text-style-03">
-                <div class="feature-box ps-8 pe-8 xl-ps-2 xl-pe-2">
-                    <div class="feature-box-icon">
-                        <i class="line-icon-Environmental-3 icon-extra-large text-base-color mb-20px"></i>
-                    </div>
-                    <div class="feature-box-content last-paragraph-no-margin">
-                        <span class="d-inline-block text-dark-gray alt-font fs-22">Ayurvedic therapy</span>
-                        <p class="lh-26">Herbal remedies</p>
-                    </div>
-                </div>
-            </div>
-            <!-- end features box item -->
-        </div>
-    </div>
-</section>
-<!-- end section -->
-<!-- start section -->
-<section class="background-repeat" style="background-image:url('/images/bg.png');">
-    <div class="container">
-        <div class="row align-items-center mb-10 md-mb-17 xs-mb-25">
-            <div class="col-xl-5 col-lg-6 md-mb-70px sm-mb-45px">
-                <span class="fs-15 mb-15px text-base-color fw-500 d-block text-uppercase ls-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 100, "easing": "easeOutQuad" }'>About studio</span>
-                <h3 class="alt-font ls-minus-1px text-dark-gray w-80 xl-w-90 md-w-100" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay": 0, "duration": 600, "staggervalue": 100, "easing": "easeOutQuad" }'>Relax at the luxury spa massage and therapy studio.</h3>
-                <p class="w-80 md-w-100 mb-40px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay": 200, "duration": 600, "staggervalue": 100, "easing": "easeOutQuad" }'>A design-led approach guides the team, implementing practices, products and services that are thoughtful and environmentally sound. Family of professionals that creates intelligent designs that help the face of hospitality.</p>
-                <div class="d-inline-block w-100" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1],  "delay":300, "duration": 600, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                    <a href="demo-spa-salon-about.html" class="btn btn-small btn-double-border btn-border-base-color me-25px xs-me-15px">
-                                <span>
-                                    <span class="btn-double-text" data-text="Explore more">Explore more</span>
-                                    <span><i class="fa-solid fa-arrow-right"></i></span>
-                                </span>
-                    </a>
-                    <div class="fw-500 d-inline-block align-middle text-dark-gray fs-18 xs-mt-20px xs-mb-20px"><i class="bi bi-telephone-outbound icon-small me-10px"></i><a href="tel:1800222000">1 800 222 000</a></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-5 position-relative offset-lg-1 offset-md-2">
-                <span class="position-absolute fs-75 left-20px top-80px text-dark-gray fw-600 z-index-1 ls-minus-4px lg-top-40px"  data-anime='{ "opacity": [0,1], "duration": 600, "delay": 1000, "staggervalue": 100, "easing": "easeOutQuad" }'><span class="fs-15 d-table lh-16 text-uppercase text-medium-gray fw-500 ls-1px">Started in</span>1995</span>
-                <div class="w-80 overflow-hidden position-relative md-w-90 border-radius-6px float-end" data-anime='{ "effect": "slide", "color": "#F4866E", "direction":"rl", "easing": "easeOutQuad", "duration": 600, "delay":500}'>
-                    <img class="w-100" src="https://placehold.co/480x580" alt="" >
-                </div>
-                <div class="position-absolute left-minus-70px bottom-minus-30px w-60 overflow-hidden md-left-minus-100px sm-left-15px" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)" data-anime='{ "effect": "slide", "color": "#36332e", "direction":"lr", "easing": "easeOutQuad", "duration": 600, "delay":500}'>
-                    <img class="w-100 border-radius-6px" src="https://placehold.co/380x375" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="row row-cols-1 row-cols-md-4 row-cols-sm-2 text-center text-sm-start" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "delay":300, "staggervalue": 300, "easing": "easeOutQuad" }'>
-            <div class="col last-paragraph-no-margin sm-mb-30px">
-                <h2 class="fw-600 ls-minus-3px text-dark-gray m-0">9.98<sup><i class="bi bi-arrow-up-short icon-medium text-base-color animation-float"></i></sup></h2>
-                <p class="text-dark-gray lh-28">Google reviews</p>
-            </div>
-            <div class="col last-paragraph-no-margin sm-mb-30px">
-                <h2 class="fw-600 ls-minus-3px text-dark-gray m-0">30k<sup><i class="bi bi-arrow-up-short icon-medium text-base-color animation-float"></i></sup></h2>
-                <p class="text-dark-gray lh-28">Instagram followers</p>
-            </div>
-            <div class="col last-paragraph-no-margin xs-mb-30px">
-                <h2 class="fw-600 ls-minus-3px text-dark-gray m-0">96%<sup><i class="bi bi-arrow-up-short icon-medium text-base-color animation-float"></i></sup></h2>
-                <p class="text-dark-gray lh-28">Repeat customers</p>
-            </div>
-            <div class="col last-paragraph-no-margin">
-                <h2 class="fw-600 ls-minus-3px text-dark-gray m-0">28+<sup><i class="bi bi-arrow-up-short icon-medium text-base-color animation-float"></i></sup></h2>
-                <p class="text-dark-gray lh-28">Years of experience</p>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end section -->
+@yield('content')
+
+
 <!-- start section -->
 <section class="background-repeat border-top border-color-light-gray position-relative overlap-height z-index-1" style="background-image:url('/images/bg.png');">
     <div class="position-absolute right-minus-50px overlap-section z-index-minus-1 d-none d-lg-inline-block" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-        <img src="https://placehold.co/175x175" alt="">
+        <img src="{{ asset('images/demo-spa-salon-bg-img-02.webp') }}" alt="">
     </div>
     <div class="position-absolute left-minus-100px top-50 z-index-minus-1 d-none d-lg-inline-block" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-        <img src="https://placehold.co/270x270" alt="">
+        <img src="{{ asset('images/demo-spa-salon-bg-img-03.png') }}"  alt="">
     </div>
     <div class="container overlap-gap-section">
         <div class="row justify-content-center mb-2">
@@ -510,10 +298,10 @@
 <!-- start section -->
 <section class="background-repeat border-top border-color-light-gray position-relative overlap-height z-index-1" style="background-image:url('/images/bg.png');">
     <div class="overlap-section text-center mb-6 z-index-minus-1 d-none d-md-block">
-        <img src="https://placehold.co/250x120" alt="">
+        <img src="{{ asset('images/logo_putih.png') }}" class="w-85px" alt="">
     </div>
     <div class="position-absolute right-minus-100px top-50 z-index-minus-1 d-none d-lg-inline-block" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-        <img src="https://placehold.co/280x280" alt="">
+        <img src="{{ asset('images/demo-spa-salon-bg-img-05.png') }}" alt="">
     </div>
     <div class="container overlap-gap-section">
         <div class="row align-items-center position-relative justify-content-center justify-content-lg-start">
@@ -556,7 +344,7 @@
             </div>
             <div class="col-5 col-lg-2 col-sm-3 text-center position-relative">
                 <img src="web/images/demo-spa-salon-home-13.png" class="animation-rotation" alt="">
-                <div class="absolute-middle-center lg-w-75"><img src="/favicon.png" alt=""></div>
+                <div class="absolute-middle-center lg-w-75"><img class="w-75" src="/favicon.png" alt=""></div>
             </div>
             <div class="col">
                 <div class="divider-style-03 divider-style-03-01 border-color-light-gray"></div>
@@ -568,7 +356,7 @@
 <!-- start section -->
 <section class="background-repeat overlap-height position-relative pt-4 md-pt-8" style="background-image:url('/images/bg.png');">
     <div class="position-absolute left-minus-100px top-50 d-none d-lg-inline-block" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
-        <img src="https://placehold.co/270x270" alt="">
+        <img src="{{ asset('images/demo-spa-salon-bg-img-03.png') }}" alt="">
     </div>
     <div class="container overlap-gap-section">
         <div class="row justify-content-center mb-6 md-mb-8 xs-mb-40px">

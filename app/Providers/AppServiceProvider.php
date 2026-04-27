@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         URL::forceScheme('https');
+
         View::composer('*', function ($view) {
 
             if (request()->is('admin/*')) {
@@ -34,12 +35,22 @@ class AppServiceProvider extends ServiceProvider
                 ->with(['children', 'page'])
                 ->orderBy('order')
                 ->get();
-            // Ambil settings (tanpa cache)
+
+            // 🔥 Split menu (ganjil → kiri lebih banyak)
+            $total = $menus->count();
+            $half = ceil($total / 2);
+
+            $menusLeft = $menus->take($half);
+            $menusRight = $menus->slice($half);
+
+            // Settings
             $settings = Setting::pluck('value', 'key')->toArray();
 
-            // Kirim ke semua blade
+            // Kirim ke blade
             $view->with([
-                'menus' => $menus,
+                'menus' => $menus, // optional (kalau masih dipakai)
+                'menusLeft' => $menusLeft,
+                'menusRight' => $menusRight,
                 'settings' => $settings,
             ]);
         });

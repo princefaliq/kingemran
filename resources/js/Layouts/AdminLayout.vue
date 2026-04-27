@@ -69,7 +69,7 @@ watch(
                             <!--end::Aside  toggle-->
                             <!--begin::Logo-->
                             <a href="">
-                                <img alt="Logo" src="/diskominfo.png" class="h-25px h-lg-30px" />
+                                <img alt="Logo" src="/favicon.png" class="h-25px h-lg-30px" />
                             </a>
                             <!--end::Logo-->
 
@@ -266,7 +266,7 @@ watch(
                             <!--begin::Copyright-->
                             <div class="text-gray-900 order-2 order-md-1">
                                 <span class="text-muted fw-semibold me-1">2026&copy;</span>
-                                <a href="https://kominfo.bondowosokab.go.id" target="_blank" class="text-gray-800 text-hover-primary">Aptika::Kominfo</a>
+                                <a href="/" target="_blank" class="text-gray-800 text-hover-primary">A. F. I.</a>
                             </div>
                             <!--end::Copyright-->
                             <!--begin::Menu-->
@@ -277,7 +277,7 @@ watch(
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="https://wa.me/6282335596664?text=Hallo%20saya%20dari%20website%20kecamatan%20grujugan" target="_blank" class="menu-link px-2">Contact Us</a>
+                                    <a href="https://wa.me/6282335596664?text=Hallo%20saya%20dari%20website%20chantika" target="_blank" class="menu-link px-2">Contact Us</a>
                                 </li>
                                 <li class="menu-item">
                                     <a href="https://wa.me/6282335596664?text=Hallo%20saya%20mau%20beli%20aplikasi%20website" target="_blank" class="menu-link px-2">Purchase</a>
