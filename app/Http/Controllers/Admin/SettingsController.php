@@ -56,16 +56,21 @@ class SettingsController extends Controller
     {
         return inertia('Admin/Settings/Edit', [
             'settings' => [
-                'pimpinan_nama' => Setting::get('pimpinan_nama'),
-                'pimpinan_foto' => Setting::get('pimpinan_foto'),
-                'pimpinan_sambutan' => Setting::get('pimpinan_sambutan'),
+                'motto' => Setting::get('motto'),
+                'about' => Setting::get('about'),
+
+                'foto_spa_1' => Setting::get('foto_spa_1'),
+                'foto_spa_2' => Setting::get('foto_spa_2'),
+
                 'kontak_telepon' => Setting::get('kontak_telepon'),
                 'kontak_email' => Setting::get('kontak_email'),
                 'kontak_alamat' => Setting::get('kontak_alamat'),
+
                 'sosmed_facebook' => Setting::get('sosmed_facebook'),
                 'sosmed_instagram' => Setting::get('sosmed_instagram'),
                 'sosmed_youtube' => Setting::get('sosmed_youtube'),
                 'sosmed_tiktok' => Setting::get('sosmed_tiktok'),
+
                 'jam_kerja_senin_kamis' => Setting::get('jam_kerja_senin_kamis'),
                 'jam_kerja_jumat' => Setting::get('jam_kerja_jumat'),
             ]
@@ -78,41 +83,69 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'pimpinan_nama' => 'required|string|max:255',
-            'pimpinan_sambutan' => 'nullable|string',
-            'pimpinan_foto' => 'nullable|image|max:2048',
-            'remove_foto' => 'nullable|boolean',
+            'motto' => 'required|string|max:255',
+            'about' => 'nullable|string',
+
+            'foto_spa_1' => 'nullable|image|max:2048',
+            'foto_spa_2' => 'nullable|image|max:2048',
+
+            'remove_foto_spa_1' => 'nullable|boolean',
+            'remove_foto_spa_2' => 'nullable|boolean',
         ]);
 
         /* =========================
-        FOTO
+        HANDLE FOTO SPA 1
         ========================= */
-        $oldFoto = Setting::get('pimpinan_foto');
+        $oldFoto1 = Setting::get('foto_spa_1');
 
-        if ($request->remove_foto) {
-            if ($oldFoto && Storage::disk('public')->exists($oldFoto)) {
-                Storage::disk('public')->delete($oldFoto);
+        if ($request->remove_foto_spa_1) {
+            if ($oldFoto1 && Storage::disk('public')->exists($oldFoto1)) {
+                Storage::disk('public')->delete($oldFoto1);
             }
 
-            Setting::set('pimpinan_foto', null);
+            Setting::set('foto_spa_1', null);
         }
 
-        if ($request->hasFile('pimpinan_foto')) {
+        if ($request->hasFile('foto_spa_1')) {
 
-            if ($oldFoto && Storage::disk('public')->exists($oldFoto)) {
-                Storage::disk('public')->delete($oldFoto);
+            if ($oldFoto1 && Storage::disk('public')->exists($oldFoto1)) {
+                Storage::disk('public')->delete($oldFoto1);
             }
 
-            $path = $request->file('pimpinan_foto')->store('pimpinan', 'public');
+            $path1 = $request->file('foto_spa_1')->store('spa', 'public');
 
-            Setting::set('pimpinan_foto', $path);
+            Setting::set('foto_spa_1', $path1);
         }
 
         /* =========================
-        SAVE SEMUA SETTING
+        HANDLE FOTO SPA 2
         ========================= */
-        Setting::set('pimpinan_nama', $request->pimpinan_nama);
-        Setting::set('pimpinan_sambutan', $request->pimpinan_sambutan);
+        $oldFoto2 = Setting::get('foto_spa_2');
+
+        if ($request->remove_foto_spa_2) {
+            if ($oldFoto2 && Storage::disk('public')->exists($oldFoto2)) {
+                Storage::disk('public')->delete($oldFoto2);
+            }
+
+            Setting::set('foto_spa_2', null);
+        }
+
+        if ($request->hasFile('foto_spa_2')) {
+
+            if ($oldFoto2 && Storage::disk('public')->exists($oldFoto2)) {
+                Storage::disk('public')->delete($oldFoto2);
+            }
+
+            $path2 = $request->file('foto_spa_2')->store('spa', 'public');
+
+            Setting::set('foto_spa_2', $path2);
+        }
+
+        /* =========================
+        SAVE TEXT SETTING
+        ========================= */
+        Setting::set('motto', $request->motto);
+        Setting::set('about', $request->about);
 
         Setting::set('kontak_telepon', $request->kontak_telepon);
         Setting::set('kontak_email', $request->kontak_email);

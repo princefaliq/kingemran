@@ -324,10 +324,10 @@
                 </ul>
                 <div class="d-inline-block w-100">
                     <a href="demo-spa-salon-treatments.html" class="btn btn-small btn-double-border btn-border-base-color">
-                                <span>
-                                    <span class="btn-double-text" data-text="View treatments">View treatments</span>
-                                    <span><i class="fa-solid fa-arrow-right"></i></span>
-                                </span>
+                        <span>
+                            <span class="btn-double-text" data-text="View treatments">View treatments</span>
+                            <span><i class="fa-solid fa-arrow-right"></i></span>
+                        </span>
                     </a>
                 </div>
             </div>

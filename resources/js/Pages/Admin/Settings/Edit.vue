@@ -17,11 +17,12 @@ REFS
 const editorRef = ref(null)
 const cropperImage = ref(null)
 const cropperModal = ref(null)
-const previewUrl = ref(
-    props.settings.pimpinan_foto
-        ? `/storage/${props.settings.pimpinan_foto}`
-        : null
-)
+const previewUrls = ref({
+    foto_spa_1: props.settings.foto_spa_1 ? `/storage/${props.settings.foto_spa_1}` : null,
+    foto_spa_2: props.settings.foto_spa_2 ? `/storage/${props.settings.foto_spa_2}` : null,
+})
+
+const currentPhotoKey = ref(null)
 const fileInput = ref(null)
 
 let quill = null
@@ -31,10 +32,12 @@ let cropper = null
 FORM
 ========================= */
 const form = useForm({
-    pimpinan_nama: props.settings.pimpinan_nama || '',
-    pimpinan_sambutan: props.settings.pimpinan_sambutan || '',
-    pimpinan_foto: null,
-    remove_foto: false,
+    motto: props.settings.motto || '',
+    about: props.settings.about || '',
+    foto_spa_1: null,
+    foto_spa_2: null,
+    remove_foto_spa_1: false,
+    remove_foto_spa_2: false,
 
     kontak_telepon: props.settings.kontak_telepon || '',
     kontak_email: props.settings.kontak_email || '',
@@ -54,10 +57,14 @@ const form = useForm({
 SAVE
 ========================= */
 const save = () => {
-    form.pimpinan_sambutan = quill.root.innerHTML
+    form.about = quill.root.innerHTML
 
-    if (!form.pimpinan_foto && !form.remove_foto) {
-        delete form.pimpinan_foto
+    if (!form.foto_spa_1 && !form.remove_foto_spa_1) {
+        delete form.foto_spa_1
+    }
+
+    if (!form.foto_spa_2 && !form.remove_foto_spa_2) {
+        delete form.foto_spa_2
     }
 
     form
@@ -91,18 +98,19 @@ onMounted(async () => {
     })
 
     // SET INITIAL VALUE
-    quill.root.innerHTML = form.pimpinan_sambutan || ''
+    quill.root.innerHTML = form.about || ''
 
     // 🔥 WAJIB: sync ke form
     quill.on('text-change', () => {
-        form.pimpinan_sambutan = quill.root.innerHTML
+        form.about = quill.root.innerHTML
     })
 })
 
 /* =========================
 IMAGE HANDLER
 ========================= */
-const triggerFileInput = () => {
+const triggerFileInput = (photoKey) => {
+    currentPhotoKey.value = photoKey
     fileInput.value?.click()
 }
 
@@ -145,12 +153,12 @@ const cropImage = () => {
         height: 500
     })
 
-    previewUrl.value = canvas.toDataURL('image/jpeg')
+    previewUrls.value[currentPhotoKey.value] = canvas.toDataURL('image/jpeg')
 
     canvas.toBlob((blob) => {
-        form.pimpinan_foto = new File(
+        form[currentPhotoKey.value] = new File(
             [blob],
-            'pimpinan.jpg',
+            `${currentPhotoKey.value}.jpg`,
             { type: 'image/jpeg' }
         )
     })
@@ -161,10 +169,10 @@ const cropImage = () => {
     modal.hide()
 }
 
-const removeImage = () => {
-    previewUrl.value = null
-    form.pimpinan_foto = null
-    form.remove_foto = true
+const removeImage = (photoKey) => {
+    previewUrls.value[photoKey] = null
+    form[photoKey] = null
+    form[`remove_${photoKey}`] = true
 
     if (fileInput.value) {
         fileInput.value.value = ''
@@ -214,35 +222,51 @@ onBeforeUnmount(() => {
             <div class="card-body">
 
                 <!-- PIMPINAN -->
-                <h4 class="mb-5">Profil Pimpinan</h4>
+                <h4 class="mb-5">About</h4>
 
                 <div class="mb-5">
-                    <label>Nama</label>
-                    <input class="form-control" v-model="form.pimpinan_nama" />
+                    <label>Motto</label>
+                    <input class="form-control" v-model="form.motto" />
                 </div>
 
                 <!-- FOTO -->
-                <div class="mb-7">
-                    <label>Foto</label>
+                <div class="row">
+                    <!-- FOTO 1 -->
+                    <div class="col-md-6 mb-7">
+                        <label>Foto Spa 1</label>
 
-                    <input type="file" ref="fileInput" class="d-none" @change="openCropper" />
+                        <input type="file" ref="fileInput" class="d-none" @change="openCropper" />
 
-                    <div class="card p-5 text-center">
+                        <div class="card p-5 text-center">
+                            <div v-if="!previewUrls.foto_spa_1" @click="triggerFileInput('foto_spa_1')" class="border p-5 cursor-pointer">
+                                Upload Foto
+                            </div>
 
-                        <div v-if="!previewUrl" @click="triggerFileInput" class="border p-5 cursor-pointer">
-                            Upload Foto
+                            <div v-else>
+                                <img :src="previewUrls.foto_spa_1" style="width:150px;border-radius:10px" />
+                                <div class="mt-3">
+                                    <button class="btn btn-light btn-sm me-2" @click="triggerFileInput('foto_spa_1')">Edit</button>
+                                    <button class="btn btn-danger btn-sm" @click="removeImage('foto_spa_1')">Remove</button>
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
-                        <div v-else>
-                            <img :src="previewUrl" style="width:150px;border-radius:10px" />
+                    <!-- FOTO 2 -->
+                    <div class="col-md-6 mb-7">
+                        <label>Foto Spa 2</label>
 
-                            <div class="mt-3">
-                                <button class="btn btn-light btn-sm me-2" @click="triggerFileInput">
-                                    Edit
-                                </button>
-                                <button class="btn btn-danger btn-sm" @click="removeImage">
-                                    Remove
-                                </button>
+                        <div class="card p-5 text-center">
+                            <div v-if="!previewUrls.foto_spa_2" @click="triggerFileInput('foto_spa_2')" class="border p-5 cursor-pointer">
+                                Upload Foto
+                            </div>
+
+                            <div v-else>
+                                <img :src="previewUrls.foto_spa_2" style="width:150px;border-radius:10px" />
+                                <div class="mt-3">
+                                    <button class="btn btn-light btn-sm me-2" @click="triggerFileInput('foto_spa_2')">Edit</button>
+                                    <button class="btn btn-danger btn-sm" @click="removeImage('foto_spa_2')">Remove</button>
+                                </div>
                             </div>
                         </div>
                     </div>

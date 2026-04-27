@@ -97,7 +97,7 @@ const stripHtml = (html) => {
 
                                         <!-- FOTO -->
                                         <img
-                                            v-if="item.key.includes('foto') && item.value"
+                                            v-if="['foto_spa_1', 'foto_spa_2'].includes(item.key) && item.value"
                                             :src="`/storage/${item.value}`"
                                             style="width: 50px; height: 80px; object-fit: cover; border-radius: 5px;"
                                         />
