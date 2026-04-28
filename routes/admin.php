@@ -7,7 +7,9 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\GallerieController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\SpaProgramController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
@@ -59,6 +61,12 @@ Route::middleware('auth')->group(callback: function () {
     });
     Route::middleware('permission:employees')->group(function () {
         Route::resource('employees', EmployeeController::class);
+    });
+    Route::middleware('permission:services')->group(function () {
+        Route::resource('services', ServiceController::class);
+    });
+    Route::middleware('permission:spa-programs')->group(function () {
+        Route::resource('spa-programs', SpaProgramController::class);
     });
     Route::middleware('permission:settings')->prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [SettingsController::class, 'index'])->name('index');

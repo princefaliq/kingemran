@@ -211,6 +211,48 @@ const isRouteActive = (routes) => {
             <div data-kt-menu-trigger="click" class="menu-item">
                 <!--begin:Menu link-->
                 <Link
+                    :href="route('admin.services.index')"
+                    class="menu-link"
+                    :class="{ active: route().current('admin.services.*') }"
+                    v-if="$page.props.auth.permissions.includes('services')"
+                >
+                    <span class="menu-icon">
+                        <i class="ki-duotone ki-medal-star fs-2">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                            <span class="path4"></span>
+                        </i>
+                    </span>
+                    <span class="menu-title">Services</span>
+                </Link>
+                <!--end:Menu link-->
+            </div>
+            <div data-kt-menu-trigger="click" class="menu-item">
+                <!--begin:Menu link-->
+                <Link
+                    :href="route('admin.spa-programs.index')"
+                    class="menu-link"
+                    :class="{ active: route().current('admin.spa-programs.*') }"
+                    v-if="$page.props.auth.permissions.includes('spa-programs')"
+                >
+                    <span class="menu-icon">
+                        <i class="ki-duotone ki-bill fs-2">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                            <span class="path4"></span>
+                            <span class="path5"></span>
+                            <span class="path6"></span>
+                        </i>
+                    </span>
+                    <span class="menu-title">Spa Program</span>
+                </Link>
+                <!--end:Menu link-->
+            </div>
+            <div data-kt-menu-trigger="click" class="menu-item">
+                <!--begin:Menu link-->
+                <Link
                     :href="route('admin.settings.index')"
                     class="menu-link"
                     :class="{ active: route().current('admin.settings.*') }"

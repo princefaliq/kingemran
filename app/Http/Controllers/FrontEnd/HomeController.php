@@ -7,6 +7,8 @@ use App\Models\Article;
 use App\Models\Baner;
 use App\Models\Employee;
 use App\Models\Gallerie;
+use App\Models\Service;
+use App\Models\SpaProgram;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -56,6 +58,21 @@ class HomeController extends Controller
 
         $employee = Employee::active()->latest()->get();
 
+        $services = Service::where('is_active', true)
+            ->latest() // terbaru dulu
+            ->get();
+        $spaPrograms = SpaProgram::where('is_active', true)
+            ->latest() // ambil terbaru (created_at desc)
+            ->take(6)
+            ->get();
+
+        // split 2 kolom
+        $chunks = $spaPrograms->chunk(
+            ceil($spaPrograms->count() / 2)
+        );
+
+        $leftPrograms = $chunks->get(0) ?? collect();
+        $rightPrograms = $chunks->get(1) ?? collect();
         return view('frontend.pages.home', compact(
             'banners',
             'beritas',
@@ -63,7 +80,13 @@ class HomeController extends Controller
             'employee',
             'activeVisitors',
             'totalVisitors',
-            'todayVisitors'
+            'todayVisitors',
+            'services',
+            // ✅ tambahan SPA
+            'spaPrograms',
+            'leftPrograms',
+            'rightPrograms',
+            'chunks'
         ));
     }
 }

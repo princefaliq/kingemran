@@ -4,6 +4,7 @@
     @include('frontend.sections.home.banner')
     @include('frontend.sections.home.fasilitas')
     @include('frontend.sections.home.about')
+    @include('frontend.sections.home.layanan')
    {{--
     @include('frontend.sections.home.team')
     @include('frontend.sections.home.berita')

@@ -29,6 +29,8 @@ class RolePermissionSeeder extends Seeder
             'settings',
             'galleries',
             'employees',
+            'services',
+            'spa-programs',
         ];
         foreach ($permissions as $perm) {
             Permission::firstOrCreate(['name' => $perm]);
