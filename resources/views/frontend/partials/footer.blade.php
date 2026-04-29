@@ -9,11 +9,15 @@
             <div class="col-lg-3 col-md-4 col-sm-6 last-paragraph-no-margin me-auto z-index-1 text-center text-sm-start xs-mb-20px">
                 <span class="fs-20 fw-500 text-dark-gray d-block mb-5px">Spa location</span>
                 <p class="w-100">{{ $settings['kontak_alamat'] }}</p>
+                @if(!empty($settings['jam_kerja']))
+                    <span class="fs-20 fw-500 text-dark-gray d-block mb-5px mt-20px">Jam Kerja</span>
+                    <p class="w-100">{!! nl2br(e($settings['jam_kerja'])) !!}</p>
+                @endif
             </div>
             <div class="col-lg-3 col-md-4 col-sm-6 last-paragraph-no-margin text-center text-sm-end z-index-1">
                 <span class="fs-20 fw-500 text-dark-gray d-block mb-5px">How can we help?</span>
                 <a class="text-light" href="mailto:{{ $settings['kontak_email'] }}">{{ $settings['kontak_email'] }}</a><br>
-                <a class="text-light" href="tel:{{ $settings['kontak_telepon'] }}">{{ $settings['kontak_telepon'] }}</a>
+                <a class="text-light" href="{{ $whatsappUrl($settings['kontak_telepon'] ?? '') }}" target="_blank" rel="noopener">{{ $settings['kontak_telepon'] }}</a>
             </div>
         </div>
         <div class="row align-items-center justify-content-center mt-20px mb-10px md-mb-20px">

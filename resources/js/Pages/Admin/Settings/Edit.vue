@@ -48,9 +48,7 @@ const form = useForm({
     sosmed_youtube: props.settings.sosmed_youtube || '',
     sosmed_tiktok: props.settings.sosmed_tiktok || '',
 
-    // ✅ TAMBAHAN JAM KERJA
-    jam_kerja_senin_kamis: props.settings.jam_kerja_senin_kamis || '',
-    jam_kerja_jumat: props.settings.jam_kerja_jumat || '',
+    jam_kerja: props.settings.jam_kerja || '',
 })
 
 /* =========================
@@ -326,21 +324,13 @@ onBeforeUnmount(() => {
                 <h4 class="mb-5">Jam Kerja</h4>
 
                 <div class="mb-5">
-                    <label>Senin - Kamis</label>
-                    <input
+                    <label>Jam Kerja</label>
+                    <textarea
                         class="form-control"
-                        v-model="form.jam_kerja_senin_kamis"
-                        placeholder="Contoh: 08:00 - 15:00"
-                    />
-                </div>
-
-                <div class="mb-5">
-                    <label>Jumat</label>
-                    <input
-                        class="form-control"
-                        v-model="form.jam_kerja_jumat"
-                        placeholder="Contoh: 08:00 - 11:30"
-                    />
+                        v-model="form.jam_kerja"
+                        rows="3"
+                        placeholder="Contoh: Setiap hari 09:00 - 21:00"
+                    ></textarea>
                 </div>
             </div>
         </div>

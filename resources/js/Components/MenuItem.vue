@@ -263,7 +263,7 @@ const isRouteActive = (routes) => {
 
                         </i>
                     </span>
-                    <span class="menu-title">Spa Program</span>
+                    <span class="menu-title">Testimonials</span>
                 </Link>
                 <!--end:Menu link-->
             </div>

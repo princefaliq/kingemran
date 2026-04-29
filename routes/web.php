@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\FrontEnd\AboutController;
 use App\Http\Controllers\FrontEnd\BeritaController;
 use App\Http\Controllers\FrontEnd\HomeController;
+use App\Http\Controllers\FrontEnd\LayananController;
 use App\Http\Controllers\FrontEnd\PagesController;
 use App\Http\Controllers\FrontEnd\TestimonialController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class,'index'])->name('beranda');
+Route::get('/tentang-kami', [AboutController::class, 'index']);
+Route::get('/layanan', [LayananController::class, 'index'])->name('layanan.index');
 Route::get('/testimoni', [TestimonialController::class, 'create'])->name('testimonials.create');
 Route::post('/testimoni', [TestimonialController::class, 'store'])->name('testimonials.store');
 // filter dulu (lebih spesifik)

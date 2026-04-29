@@ -4,7 +4,11 @@
         <div class="container-fluid">
             <div class="col-auto col-lg-2 menu-logo">
                 <div class="d-none d-lg-block">
-                    <a href="tel:{{ $settings['kontak_telepon'] }}" class="widget-text text-white-hover fs-16 lg-fs-15"><i class="feather icon-feather-phone icon-small me-5px lg-me-2px"></i>{{ $settings['kontak_telepon'] }}</a>
+                    @if(!empty($settings['jam_kerja']))
+                        <div class="widget-text fs-16 lg-fs-15 text-white-hover">
+                            <i class="feather icon-feather-clock icon-small me-5px lg-me-2px"></i>{{ $settings['jam_kerja'] }}
+                        </div>
+                    @endif
                 </div>
                 <a class="navbar-brand" href="/">
                     <img src="{{ asset('favicon.png') }}" data-at2x="{{ asset('favicon.png') }}" alt="logo chantik spa & salon" class="default-logo">
@@ -33,3 +37,15 @@
         </div>
     </nav>
 </header>
+
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.navbar-toggler, .navbar-collapse').forEach(function (element) {
+                element.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                });
+            });
+        });
+    </script>
+@endpush

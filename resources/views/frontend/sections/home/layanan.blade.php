@@ -67,7 +67,7 @@
         </div>
         <div class="row mb-5 xs-mb-8">
             <div class="col-12 text-center">
-                <h5 class="alt-font text-dark-gray">Revitalize your senses and refresh? <a href="demo-spa-salon-packages.html" class="text-dark-gray text-dark-gray-hover text-decoration-line-bottom">Explore package</a></h5>
+                <h5 class="alt-font text-dark-gray">Segarkan tubuh dan pikiran Anda? <a href="{{ url('/layanan') }}" class="text-dark-gray text-dark-gray-hover text-decoration-line-bottom">Lihat paket perawatan</a></h5>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -113,9 +113,9 @@
                             >
                             <div class="ms-30px xs-ms-0 flex-grow-1">
                                 <div class="d-flex align-items-center w-120 fs-18">
-                    <span class="fs-22 alt-font text-dark-gray">
-                        {{ $item->nama_paket }}
-                    </span>
+                                    <span class="fs-22 alt-font text-dark-gray">
+                                        {{ $item->nama_paket }}
+                                    </span>
 
                                     <div class="divider-style-03 divider-style-03-02 border-color-light-gray flex-grow-1 ms-20px me-20px"></div>
 

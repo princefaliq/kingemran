@@ -11,11 +11,11 @@
                         <div class="col-xl-8 col-lg-9 position-relative text-white text-center">
                             <span class="fs-15 d-block mb-15px ls-4px text-uppercase" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "duration": 500, "delay": 200 }'>Omah Chantik Spa & Beauty</span>
                             <div class="alt-font fs-80 sm-fs-60 xs-fs-50 mb-40px w-80 lg-w-100 md-w-90 sm-w-100 mx-auto sm-mb-35px anime-text ls-minus-2px" data-fancy-text='{ "opacity": [0, 1], "translateY": [50, 0], "string": ["{!! nl2br(e($banner->text)) !!}"], "duration": 500, "delay": 200, "speed": 10, "easing": "easeOutQuad" }'></div>
-                            {{--<a href="/" class="btn btn-medium fw-500 btn-double-border btn-border-color-transparent-white" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "delay": 800, "duration": 800 }'>
+                            <a href="{{ $whatsappUrl($settings['kontak_telepon'] ?? '') }}" target="_blank" rel="noopener" class="btn btn-medium fw-500 btn-double-border btn-border-color-transparent-white" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "delay": 800, "duration": 800 }'>
                                 <span>
-                                    <span class="btn-double-text" data-text="Book appointment">Book appointment</span>
+                                    <span class="btn-double-text" data-text="Booking Sekarang">Booking Sekarang</span>
                                 </span>
-                            </a>--}}
+                            </a>
                         </div>
                     </div>
                 </div>

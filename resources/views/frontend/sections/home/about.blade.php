@@ -21,7 +21,7 @@
                             <span><i class="fa-solid fa-arrow-right text-light"></i></span>
                         </span>
                     </a>
-                    <div class="fw-500 d-inline-block align-middle text-light fs-18 xs-mt-20px xs-mb-20px"><i class="bi bi-telephone-outbound icon-small me-10px"></i><a class="text-light" href="tel:{{ $settings['kontak_telepon'] }}">{{ $settings['kontak_telepon'] }}</a></div>
+                    <div class="fw-500 d-inline-block align-middle text-light fs-18 xs-mt-20px xs-mb-20px"><i class="bi bi-telephone-outbound icon-small me-10px"></i><a class="text-light" href="{{ $whatsappUrl($settings['kontak_telepon'] ?? '') }}" target="_blank" rel="noopener">{{ $settings['kontak_telepon'] }}</a></div>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-5 position-relative offset-lg-1 offset-md-2">

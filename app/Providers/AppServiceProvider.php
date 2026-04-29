@@ -46,12 +46,25 @@ class AppServiceProvider extends ServiceProvider
             // Settings
             $settings = Setting::pluck('value', 'key')->toArray();
 
+            $whatsappUrl = function ($phone) {
+                $number = preg_replace('/\D+/', '', (string) $phone);
+
+                if (str_starts_with($number, '0')) {
+                    $number = '62' . substr($number, 1);
+                } elseif (str_starts_with($number, '8')) {
+                    $number = '62' . $number;
+                }
+
+                return $number ? 'https://wa.me/' . $number : '#';
+            };
+
             // Kirim ke blade
             $view->with([
                 'menus' => $menus, // optional (kalau masih dipakai)
                 'menusLeft' => $menusLeft,
                 'menusRight' => $menusRight,
                 'settings' => $settings,
+                'whatsappUrl' => $whatsappUrl,
             ]);
         });
     }

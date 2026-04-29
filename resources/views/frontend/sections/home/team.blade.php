@@ -21,7 +21,7 @@
                                          <span class="fs-18 d-block fw-600 text-dark-gray lh-26 ls-minus-05px">{{ $employees->name }}</span>
                                          <p class="m-0">{{ $employees->position }}</p>
                                          <div class="social-icon hover-text mt-20px lg-mt-10px social-icon-style-05">
-                                             <a href="tel:{{ $employees->phone }}" target="_blank" class="fw-600 text-dark-gray">{{ $employees->phone }}</a>
+                                             <a href="{{ $whatsappUrl($employees->phone) }}" target="_blank" rel="noopener" class="fw-600 text-dark-gray">{{ $employees->phone }}</a>
 
                                          </div>
                                      </div>

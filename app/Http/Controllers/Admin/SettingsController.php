@@ -71,8 +71,7 @@ class SettingsController extends Controller
                 'sosmed_youtube' => Setting::get('sosmed_youtube'),
                 'sosmed_tiktok' => Setting::get('sosmed_tiktok'),
 
-                'jam_kerja_senin_kamis' => Setting::get('jam_kerja_senin_kamis'),
-                'jam_kerja_jumat' => Setting::get('jam_kerja_jumat'),
+                'jam_kerja' => Setting::get('jam_kerja'),
             ]
         ]);
     }
@@ -85,6 +84,7 @@ class SettingsController extends Controller
         $request->validate([
             'motto' => 'required|string|max:255',
             'about' => 'nullable|string',
+            'jam_kerja' => 'nullable|string|max:255',
 
             'foto_spa_1' => 'nullable|image|max:2048',
             'foto_spa_2' => 'nullable|image|max:2048',
@@ -156,8 +156,7 @@ class SettingsController extends Controller
         Setting::set('sosmed_youtube', $request->sosmed_youtube);
         Setting::set('sosmed_tiktok', $request->sosmed_tiktok);
 
-        Setting::set('jam_kerja_senin_kamis', $request->jam_kerja_senin_kamis);
-        Setting::set('jam_kerja_jumat', $request->jam_kerja_jumat);
+        Setting::set('jam_kerja', $request->jam_kerja);
 
         return redirect()->back()->with('success', 'Settings berhasil disimpan');
     }

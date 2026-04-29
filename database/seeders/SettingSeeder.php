@@ -28,8 +28,7 @@ class SettingSeeder extends Seeder
             'sosmed_youtube' => null,
             'sosmed_tiktok' => null,
 
-            'jam_kerja_senin_kamis'=>null,
-            'jam_kerja_jumat'=>null,
+            'jam_kerja' => 'Setiap hari 09:00 - 21:00',
         ];
 
         foreach ($settings as $key => $value) {

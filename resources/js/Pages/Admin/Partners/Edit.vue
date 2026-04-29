@@ -201,10 +201,10 @@ onBeforeUnmount(() => {
                                     />
 
                                     <div class="mt-3">
-                                        <button class="btn btn-light btn-sm me-2" @click="triggerFileInput">
+                                        <button type="button" class="btn btn-light btn-sm me-2" @click="triggerFileInput">
                                             Change
                                         </button>
-                                        <button class="btn btn-danger btn-sm" @click="removeImage">
+                                        <button type="button" class="btn btn-danger btn-sm" @click="removeImage">
                                             Remove
                                         </button>
                                     </div>

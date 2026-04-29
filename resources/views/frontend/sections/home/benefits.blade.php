@@ -32,7 +32,7 @@
                     <li class="border-color-light-gray pt-15px pb-15px text-dark-gray">Membantu tampil segar dan percaya diri</li>
                 </ul>
                 <div class="d-inline-block w-100">
-                    <a href="demo-spa-salon-treatments.html" class="btn btn-small btn-double-border btn-border-base-color">
+                    <a href="{{ $whatsappUrl($settings['kontak_telepon'] ?? '') }}" target="_blank" rel="noopener" class="btn btn-small btn-double-border btn-border-base-color">
                         <span>
                             <span class="btn-double-text" data-text="Booking Sekarang">Booking Sekarang</span>
                             <span><i class="fa-solid fa-arrow-right"></i></span>
