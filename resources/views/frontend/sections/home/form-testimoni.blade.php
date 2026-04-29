@@ -1,5 +1,5 @@
 <!-- start section -->
-<section class="background-repeat overlap-height position-relative pt-4 md-pt-8" style="background-image:url('/images/bg.png');">
+<section class="background-repeat overlap-height position-relative pt-4 md-pt-8" id="testimoni" style="background-image:url('/images/bg.png');">
     <div class="position-absolute left-minus-100px top-50 d-none d-lg-inline-block" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
         <img src="{{ asset('images/demo-spa-salon-bg-img-03.png') }}" alt="">
     </div>

@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title','Home')
+@section('title','Beranda')
 @section('content')
     @include('frontend.sections.home.banner')
     @include('frontend.sections.home.fasilitas')

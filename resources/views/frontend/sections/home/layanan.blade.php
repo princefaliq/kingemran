@@ -67,7 +67,7 @@
         </div>
         <div class="row mb-5 xs-mb-8">
             <div class="col-12 text-center">
-                <h5 class="alt-font text-dark-gray">Segarkan tubuh dan pikiran Anda? <a href="{{ url('/layanan') }}" class="text-dark-gray text-dark-gray-hover text-decoration-line-bottom">Lihat paket perawatan</a></h5>
+                <h5 class="alt-font text-dark-gray">Segarkan tubuh dan pikiran Anda? <a href="{{ url('/paket') }}" class="text-dark-gray text-dark-gray-hover text-decoration-line-bottom">Lihat paket perawatan</a></h5>
             </div>
         </div>
         <div class="row justify-content-center">

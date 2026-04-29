@@ -52,11 +52,11 @@
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-12 text-center position-relative page-title-extra-large">
-                    <h1 class="text-white alt-font mb-0 fw-400 ls-minus-1px">Layanan</h1>
+                    <h1 class="text-white alt-font mb-0 fw-400 ls-minus-1px">Paket</h1>
                     <div class="breadcrumb breadcrumb-style-01 text-white justify-content-center mt-10px">
                         <ul>
                             <li><a href="{{ route('beranda') }}" class="text-white">Home</a></li>
-                            <li>Layanan</li>
+                            <li>Paket</li>
                         </ul>
                     </div>
                 </div>
