@@ -3,6 +3,7 @@
 use App\Http\Controllers\FrontEnd\BeritaController;
 use App\Http\Controllers\FrontEnd\HomeController;
 use App\Http\Controllers\FrontEnd\PagesController;
+use App\Http\Controllers\FrontEnd\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class,'index'])->name('beranda');
+Route::get('/testimoni', [TestimonialController::class, 'create'])->name('testimonials.create');
+Route::post('/testimoni', [TestimonialController::class, 'store'])->name('testimonials.store');
 // filter dulu (lebih spesifik)
 Route::get('/berita/kategori/{slug}', [BeritaController::class, 'category'])->name('news.category');
 Route::get('/berita/tag/{slug}', [BeritaController::class, 'tag'])->name('news.tag');

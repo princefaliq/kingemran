@@ -7,10 +7,12 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\GallerieController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PagesController;
+use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SpaProgramController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -65,9 +67,18 @@ Route::middleware('auth')->group(callback: function () {
     Route::middleware('permission:services')->group(function () {
         Route::resource('services', ServiceController::class);
     });
+    Route::middleware('permission:testimonials')->group(function () {
+        Route::patch('testimonials/{testimonial}/status', [TestimonialController::class, 'updateStatus'])->name('testimonials.update-status');
+        Route::resource('testimonials', TestimonialController::class);
+    });
     Route::middleware('permission:spa-programs')->group(function () {
         Route::resource('spa-programs', SpaProgramController::class);
     });
+    Route::middleware('permission:partners')->group(function () {
+        Route::patch('partners/{partner}/status', [PartnerController::class, 'updateStatus'])->name('partners.update-status');
+        Route::resource('partners', PartnerController::class);
+    });
+
     Route::middleware('permission:settings')->prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [SettingsController::class, 'index'])->name('index');
         Route::get('/edit', [SettingsController::class, 'edit'])->name('edit');

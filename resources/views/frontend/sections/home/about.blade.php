@@ -15,7 +15,7 @@
                 <h3 class="alt-font ls-minus-1px text-base-color w-80 xl-w-90 md-w-100" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay": 0, "duration": 600, "staggervalue": 100, "easing": "easeOutQuad" }'>{{ $settings['motto'] }}</h3>
                 <p class="w-80 md-w-100 mb-40px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay": 200, "duration": 600, "staggervalue": 100, "easing": "easeOutQuad" }'>{!! $settings['about'] !!}</p>
                 <div class="d-inline-block w-100" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1],  "delay":300, "duration": 600, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                    <a href="demo-spa-salon-about.html" class="btn btn-small btn-double-border btn-border-color-white me-25px xs-me-15px">
+                    <a href="{{ url('tentang-kami') }}" class="btn btn-small btn-double-border btn-border-color-white me-25px xs-me-15px">
                         <span>
                             <span class="btn-double-text text-light" data-text="Explorer More">Explorer More</span>
                             <span><i class="fa-solid fa-arrow-right text-light"></i></span>
@@ -37,26 +37,27 @@
         <div class="row row-cols-1 row-cols-md-4 row-cols-sm-2 text-center text-sm-start">
 
             <div class="col sm-mb-30px">
-                <h2 class="fw-600 text-base-color m-0">10+</h2>
-                <p class="text-light">Pilihan treatment</p>
+                <h2 class="fw-600 text-base-color m-0">{{ number_format($totalVisitors) }}</h2>
+                <p class="text-light">Total Visitor</p>
             </div>
 
             <div class="col sm-mb-30px">
-                <h2 class="fw-600 text-base-color m-0">7 Hari</h2>
-                <p class="text-light">Buka setiap hari</p>
+                <h2 class="fw-600 text-base-color m-0">{{ number_format($todayVisitors) }}</h2>
+                <p class="text-light">Visitor Hari Ini</p>
             </div>
 
             <div class="col sm-mb-30px">
-                <h2 class="fw-600 text-base-color m-0">60 Min</h2>
-                <p class="text-light">Durasi relaksasi optimal</p>
+                <h2 class="fw-600 text-base-color m-0">{{ number_format($monthVisitors) }}</h2>
+                <p class="text-light">Visitor Bulan Ini</p>
             </div>
 
             <div class="col">
-                <h2 class="fw-600 text-base-color m-0">100%</h2>
-                <p class="text-light">Bahan alami</p>
+                <h2 class="fw-600 text-base-color m-0">{{ number_format($yearVisitors) }}</h2>
+                <p class="text-light">Visitor Tahun Ini</p>
             </div>
 
         </div>
+
     </div>
 </section>
 <!-- end section -->

@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, onUnmounted,ref  } from 'vue'
-import {Head, useForm, usePage } from '@inertiajs/vue3'
+import { onMounted, onUnmounted, ref } from 'vue'
+import { Head, useForm, usePage } from '@inertiajs/vue3'
 
 /**
  * ❗ Login TIDAK pakai AppLayout
@@ -11,6 +11,7 @@ let recaptchaScript = null
  * Form Inertia
  */
 const captchaError = ref(false)
+const captchaMessage = ref('')
 
 const form = useForm({
     email: '',
@@ -18,7 +19,28 @@ const form = useForm({
     'g-recaptcha-response': '',
 })
 const { appName, site_key } = usePage().props
+
+const resetCaptchaState = (message = '') => {
+    form['g-recaptcha-response'] = ''
+    captchaError.value = !!message
+    captchaMessage.value = message
+}
+
+const reloadCaptcha = () => {
+    resetCaptchaState('')
+
+    if (window.grecaptcha) {
+        window.grecaptcha.reset()
+    }
+}
+
+const refreshPage = () => {
+    window.location.reload()
+}
+
 window.onSubmit = function(token) {
+    captchaError.value = false
+    captchaMessage.value = ''
     form['g-recaptcha-response'] = token
     form.post(route('admin.login'))
 }
@@ -32,7 +54,10 @@ onMounted(() => {
     recaptchaScript.async = true
     recaptchaScript.defer = true
     window.onError = function() {
-        captchaError.value = true
+        resetCaptchaState('Google reCAPTCHA gagal dimuat. Silakan muat ulang captcha atau refresh halaman.')
+    }
+    window.onExpired = function() {
+        resetCaptchaState('Google reCAPTCHA sudah kedaluwarsa karena halaman terlalu lama terbuka. Silakan muat ulang captcha atau refresh halaman.')
     }
     document.head.appendChild(recaptchaScript)
     if (window.KTApp) {
@@ -104,8 +129,24 @@ onUnmounted(() => {
                                     <!--end::Wrapper-->
 
                                 </div>
-                                <div v-if="captchaError" class="alert alert-danger">
-                                    Verifikasi captcha gagal, silakan ulangi.
+                                <div v-if="captchaError" class="alert alert-danger d-flex flex-column gap-3 mt-2">
+                                    <span>{{ captchaMessage }}</span>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <button
+                                            type="button"
+                                            class="btn btn-sm btn-light-primary"
+                                            @click="reloadCaptcha"
+                                        >
+                                            Reload Captcha
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="btn btn-sm btn-light"
+                                            @click="refreshPage"
+                                        >
+                                            Refresh Halaman
+                                        </button>
+                                    </div>
                                 </div>
                                 <!--end::Subtitle=-->
                             </div>
@@ -178,20 +219,20 @@ onUnmounted(() => {
                                 <button
                                     class="g-recaptcha btn btn-primary"
                                     :disabled="form.processing"
+                                    :data-kt-indicator="form.processing ? 'on' : null"
                                     :data-sitekey="site_key"
                                     data-callback="onSubmit"
                                     data-error-callback="onError"
                                     data-expired-callback="onExpired"
                                     data-action="submit"
                                 >
-                                    <!--begin::Indicator label-->
                                     <span class="indicator-label">Sign In</span>
-                                    <!--end::Indicator label-->
-                                    <!--begin::Indicator progress-->
-                                    <span class="indicator-progress">Please wait...
-										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                    <!--end::Indicator progress-->
+                                    <span class="indicator-progress">
+                                        Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
                                 </button>
+
                             </div>
                             <!--end::Submit button-->
                             <!--begin::Sign up-->
@@ -235,4 +276,3 @@ onUnmounted(() => {
 
 
 </template>
-

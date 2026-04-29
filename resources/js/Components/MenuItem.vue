@@ -253,6 +253,44 @@ const isRouteActive = (routes) => {
             <div data-kt-menu-trigger="click" class="menu-item">
                 <!--begin:Menu link-->
                 <Link
+                    :href="route('admin.testimonials.index')"
+                    class="menu-link"
+                    :class="{ active: route().current('admin.testimonials.*') }"
+                    v-if="$page.props.auth.permissions.includes('testimonials')"
+                >
+                    <span class="menu-icon">
+                        <i class="ki-duotone ki-abstract-6 fs-2">
+
+                        </i>
+                    </span>
+                    <span class="menu-title">Spa Program</span>
+                </Link>
+                <!--end:Menu link-->
+            </div>
+            <div data-kt-menu-trigger="click" class="menu-item">
+                <!--begin:Menu link-->
+                <Link
+                    :href="route('admin.partners.index')"
+                    class="menu-link"
+                    :class="{ active: route().current('admin.partners.*') }"
+                    v-if="$page.props.auth.permissions.includes('partners')"
+                >
+                    <span class="menu-icon">
+                        <i class="ki-duotone ki-people fs-2">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                            <span class="path4"></span>
+                            <span class="path5"></span>
+                        </i>
+                    </span>
+                    <span class="menu-title">Partners</span>
+                </Link>
+                <!--end:Menu link-->
+            </div>
+            <div data-kt-menu-trigger="click" class="menu-item">
+                <!--begin:Menu link-->
+                <Link
                     :href="route('admin.settings.index')"
                     class="menu-link"
                     :class="{ active: route().current('admin.settings.*') }"

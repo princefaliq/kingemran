@@ -5,10 +5,6 @@
     @include('frontend.sections.home.fasilitas')
     @include('frontend.sections.home.about')
     @include('frontend.sections.home.layanan')
-   {{--
-    @include('frontend.sections.home.team')
-    @include('frontend.sections.home.berita')
-    @include('frontend.sections.home.galleries')
-    @include('frontend.sections.home.ikm')
-    @include('frontend.sections.home.pengunjung')--}}
+    @include('frontend.sections.home.benefits')
+    @include('frontend.sections.home.form-testimoni')
 @endsection
