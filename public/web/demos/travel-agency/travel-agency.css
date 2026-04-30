@@ -5,8 +5,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap');
 /* variable */
-:root {     
-    --base-color: #C19052; 
+:root {
+    --base-color: #B8863B;
     --light-gray: #E7E4DF;
     --red: #d03c3c;
     --very-light-gray:#F2EFEB;
@@ -16,7 +16,7 @@
 /* reset */
 body {
     font-size: 17px;
-    line-height: 32px; 
+    line-height: 32px;
 }
 section, footer {
     padding-top: 100px;
@@ -27,7 +27,7 @@ section.big-section {
     padding-bottom: 120px;
 }
 /* heading */
-h1 { 
+h1 {
     line-height: 3.8rem;
 }
 /* header */
@@ -117,7 +117,7 @@ header .navbar-brand img {
 /* btn */
 .btn.btn-extra-large {
     font-size: 18px;
-    padding: 16px 36px 16px; 
+    padding: 16px 36px 16px;
 }
 .btn.btn-large {
     font-size: 17px;
@@ -234,8 +234,8 @@ footer .elements-social ul li {
     section, footer { padding-top: 50px; padding-bottom: 50px; }
 }
 @media (max-width: 479px){
-    .rev_row .rev_column:nth-child(4) {display: none !important;}   
-    .rev_row .rev_column:nth-child(2) {display: none !important;}   
+    .rev_row .rev_column:nth-child(4) {display: none !important;}
+    .rev_row .rev_column:nth-child(2) {display: none !important;}
     #travel-agency_wrapper { height: 700px !important;}
     .tp-fullwidth-forcer {height: 700px !important;}
 }
