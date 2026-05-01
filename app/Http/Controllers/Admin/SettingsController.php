@@ -59,8 +59,8 @@ class SettingsController extends Controller
                 'motto' => Setting::get('motto'),
                 'about' => Setting::get('about'),
 
-                'foto_spa_1' => Setting::get('foto_spa_1'),
-                'foto_spa_2' => Setting::get('foto_spa_2'),
+                'about_image_1' => Setting::get('about_image_1'),
+                'about_image_2' => Setting::get('about_image_2'),
 
                 'kontak_telepon' => Setting::get('kontak_telepon'),
                 'kontak_email' => Setting::get('kontak_email'),
@@ -86,59 +86,59 @@ class SettingsController extends Controller
             'about' => 'nullable|string',
             'jam_kerja' => 'nullable|string|max:255',
 
-            'foto_spa_1' => 'nullable|image|max:2048',
-            'foto_spa_2' => 'nullable|image|max:2048',
+            'about_image_1' => 'nullable|image|max:2048',
+            'about_image_2' => 'nullable|image|max:2048',
 
-            'remove_foto_spa_1' => 'nullable|boolean',
-            'remove_foto_spa_2' => 'nullable|boolean',
+            'remove_about_image_1' => 'nullable|boolean',
+            'remove_about_image_2' => 'nullable|boolean',
         ]);
 
         /* =========================
         HANDLE FOTO SPA 1
         ========================= */
-        $oldFoto1 = Setting::get('foto_spa_1');
+        $oldFoto1 = Setting::get('about_image_1');
 
-        if ($request->remove_foto_spa_1) {
+        if ($request->remove_about_image_1) {
             if ($oldFoto1 && Storage::disk('public')->exists($oldFoto1)) {
                 Storage::disk('public')->delete($oldFoto1);
             }
 
-            Setting::set('foto_spa_1', null);
+            Setting::set('about_image_1', null);
         }
 
-        if ($request->hasFile('foto_spa_1')) {
+        if ($request->hasFile('about_image_1')) {
 
             if ($oldFoto1 && Storage::disk('public')->exists($oldFoto1)) {
                 Storage::disk('public')->delete($oldFoto1);
             }
 
-            $path1 = $request->file('foto_spa_1')->store('spa', 'public');
+            $path1 = $request->file('about_image_1')->store('spa', 'public');
 
-            Setting::set('foto_spa_1', $path1);
+            Setting::set('about_image_1', $path1);
         }
 
         /* =========================
         HANDLE FOTO SPA 2
         ========================= */
-        $oldFoto2 = Setting::get('foto_spa_2');
+        $oldFoto2 = Setting::get('about_image_2');
 
-        if ($request->remove_foto_spa_2) {
+        if ($request->remove_about_image_2) {
             if ($oldFoto2 && Storage::disk('public')->exists($oldFoto2)) {
                 Storage::disk('public')->delete($oldFoto2);
             }
 
-            Setting::set('foto_spa_2', null);
+            Setting::set('about_image_2', null);
         }
 
-        if ($request->hasFile('foto_spa_2')) {
+        if ($request->hasFile('about_image_2')) {
 
             if ($oldFoto2 && Storage::disk('public')->exists($oldFoto2)) {
                 Storage::disk('public')->delete($oldFoto2);
             }
 
-            $path2 = $request->file('foto_spa_2')->store('spa', 'public');
+            $path2 = $request->file('about_image_2')->store('spa', 'public');
 
-            Setting::set('foto_spa_2', $path2);
+            Setting::set('about_image_2', $path2);
         }
 
         /* =========================

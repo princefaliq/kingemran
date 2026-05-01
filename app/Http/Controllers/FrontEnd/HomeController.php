@@ -65,22 +65,6 @@ class HomeController extends Controller
 
         $employee = Employee::active()->latest()->get();
 
-        $services = Service::where('is_active', true)
-            ->latest() // terbaru dulu
-            ->get();
-        $spaPrograms = SpaProgram::where('is_active', true)
-            ->latest() // ambil terbaru (created_at desc)
-            ->take(6)
-            ->get();
-
-        // split 2 kolom
-        $chunks = $spaPrograms->chunk(
-            ceil($spaPrograms->count() / 2)
-        );
-
-        $leftPrograms = $chunks->get(0) ?? collect();
-        $rightPrograms = $chunks->get(1) ?? collect();
-
         $testimonials = Testimonial::with('spaProgram')
             ->where('is_active', true)
             ->latest()
@@ -97,12 +81,6 @@ class HomeController extends Controller
             'totalVisitors',
             'todayVisitors',
             'yearVisitors',
-            'services',
-            // ✅ tambahan SPA
-            'spaPrograms',
-            'leftPrograms',
-            'rightPrograms',
-            'chunks',
             'testimonials',
             'partners',
         ));

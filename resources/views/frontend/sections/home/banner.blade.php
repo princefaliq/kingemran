@@ -1,6 +1,6 @@
 <!-- start banner slider -->
 <section class="p-0 bg-base-color">
-    <div class="swiper full-screen ipad-top-space-margin md-h-600px sm-h-500px swiper-number-pagination-style-01 magic-cursor drag-cursor base-color" data-slider-options='{ "slidesPerView": 1, "loop": true, "pagination": { "el": ".swiper-number", "clickable": true }, "navigation": { "nextEl": ".slider-one-slide-next-1", "prevEl": ".slider-one-slide-prev-1" }, "autoplay": { "delay": 5000, "disableOnInteraction": false },  "keyboard": { "enabled": true, "onlyInViewport": true }, "effect": "fade" }' data-number-pagination="1" data-anime-text='{ "translateY": [50,0], "opacity": [0,1], "easing": "easeOutQuad", "duration": 500, "delay": { "staggervalue": 20 } }'>
+    <div class="swiper full-screen ipad-top-space-margin md-h-600px sm-h-500px swiper-number-pagination-style-01 drag-cursor base-color" data-slider-options='{ "slidesPerView": 1, "loop": true, "pagination": { "el": ".swiper-number", "clickable": true }, "navigation": { "nextEl": ".slider-one-slide-next-1", "prevEl": ".slider-one-slide-prev-1" }, "autoplay": { "delay": 5000, "disableOnInteraction": false },  "keyboard": { "enabled": true, "onlyInViewport": true }, "effect": "fade" }' data-number-pagination="1" data-anime-text='{ "translateY": [50,0], "opacity": [0,1], "easing": "easeOutQuad", "duration": 500, "delay": { "staggervalue": 20 } }'>
         <div class="swiper-wrapper">
             @foreach($banners as $banner)
                 <div class="swiper-slide">
@@ -9,8 +9,8 @@
                 <div class="container h-100">
                     <div class="row align-items-center h-100 justify-content-center">
                         <div class="col-xl-8 col-lg-9 position-relative text-white text-center">
-                            <span class="fs-15 d-block mb-15px ls-4px text-uppercase" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "duration": 500, "delay": 200 }'>Omah Chantik Spa & Beauty</span>
-                            <div class="alt-font fs-80 sm-fs-60 xs-fs-50 mb-40px w-80 lg-w-100 md-w-90 sm-w-100 mx-auto sm-mb-35px anime-text ls-minus-2px" data-fancy-text='{ "opacity": [0, 1], "translateY": [50, 0], "string": ["{!! nl2br(e($banner->text)) !!}"], "duration": 500, "delay": 200, "speed": 10, "easing": "easeOutQuad" }'></div>
+                            <span class="fs-15 d-block mb-15px ls-4px text-uppercase" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "duration": 500, "delay": 200 }'>King Emran Tour & Travel</span>
+                            <div class="alt-font fs-80 sm-fs-60 xs-fs-50 mb-40px w-80 lg-w-100 md-w-90 sm-w-100 mx-auto sm-mb-35px anime-text ls-minus-2px" data-fancy-text='{ "opacity": [0, 1], "translateY": [50, 0], "string": [@json($banner->text)], "duration": 500, "delay": 200, "speed": 10, "easing": "easeOutQuad" }'></div>
                             <a href="{{ $whatsappUrl($settings['kontak_telepon'] ?? '') }}" target="_blank" rel="noopener" class="btn btn-medium fw-500 btn-double-border btn-border-color-transparent-white" data-anime='{ "opacity": [0, 1], "easing": "easeOutCubic", "delay": 800, "duration": 800 }'>
                                 <span>
                                     <span class="btn-double-text" data-text="Booking Sekarang">Booking Sekarang</span>
@@ -33,3 +33,6 @@
     </div>
 </section>
 <!-- end banner slider -->
+<section class="position-relative pb-0 xs-pt-30px top-decoration">
+    <div class="w-100 h-70px position-absolute top-minus-70px md-top-minus-50px left-0px" style="background-image:url('web/images/demo-travel-agency-slider-07.png');"></div>
+</section>

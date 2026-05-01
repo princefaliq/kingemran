@@ -15,8 +15,8 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             'motto' => 'Relax at the luxury spa massage and therapy studio.',
-            'foto_spa_1' => null,
-            'foto_spa_2' => null,
+            'about_image_1' => null,
+            'about_image_2' => null,
             'about' => null,
 
             'kontak_telepon' => '08123456789',

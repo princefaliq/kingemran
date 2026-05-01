@@ -6,9 +6,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&display=swap');
 /* variable */
 :root {
-    --base-color: #B8863B;
-    --light-gray: #E7E4DF;
-    --red: #d03c3c;
+    --base-color: #121212;
+    --white: #FFFFFF;
+    --gold: #D4AF37;
+    --gold-light:#FFD700;
+    --dark-gold: #C9A227;
     --very-light-gray:#F2EFEB;
     --alt-font: 'Barlow Semi Condensed', sans-serif;
     --primary-font: 'Schibsted Grotesk', sans-serif;

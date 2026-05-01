@@ -64,16 +64,12 @@ Route::middleware('auth')->group(callback: function () {
     Route::middleware('permission:employees')->group(function () {
         Route::resource('employees', EmployeeController::class);
     });
-    Route::middleware('permission:services')->group(function () {
-        Route::resource('services', ServiceController::class);
-    });
+
     Route::middleware('permission:testimonials')->group(function () {
         Route::patch('testimonials/{testimonial}/status', [TestimonialController::class, 'updateStatus'])->name('testimonials.update-status');
         Route::resource('testimonials', TestimonialController::class);
     });
-    Route::middleware('permission:spa-programs')->group(function () {
-        Route::resource('spa-programs', SpaProgramController::class);
-    });
+
     Route::middleware('permission:partners')->group(function () {
         Route::patch('partners/{partner}/status', [PartnerController::class, 'updateStatus'])->name('partners.update-status');
         Route::resource('partners', PartnerController::class);

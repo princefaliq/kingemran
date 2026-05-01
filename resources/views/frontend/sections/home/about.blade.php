@@ -1,63 +1,95 @@
 @php
-    $foto_spa_1 = !empty($settings['foto_spa_1'])
-        ?  asset('storage/' .$settings['foto_spa_1'])
+    $about_image_1 = !empty($settings['about_image_1'])
+        ?  asset('storage/' .$settings['about_image_1'])
         : asset('web/images/demo-lawyer.jpg');
-    $foto_spa_2 = !empty($settings['foto_spa_2'])
-        ?  asset('storage/' .$settings['foto_spa_2'])
+    $about_image_2 = !empty($settings['about_image_2'])
+        ?  asset('storage/' .$settings['about_image_2'])
         : asset('web/images/demo-lawyer.jpg');
 @endphp
 <!-- start section -->
-<section class="background-repeat" style="background-image:url('/images/bg.png');">
-    <div class="container">
-        <div class="row align-items-center mb-10 md-mb-17 xs-mb-25">
-            <div class="col-xl-5 col-lg-6 md-mb-70px sm-mb-45px">
-                <span class="fs-15 mb-15px text-base-color fw-500 d-block text-uppercase ls-2px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 100, "easing": "easeOutQuad" }'>About Spa & Beauty</span>
-                <h3 class="alt-font ls-minus-1px text-base-color w-80 xl-w-90 md-w-100" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay": 0, "duration": 600, "staggervalue": 100, "easing": "easeOutQuad" }'>{{ $settings['motto'] }}</h3>
-                <p class="w-80 md-w-100 mb-40px" data-anime='{ "el": "lines", "translateY": [30, 0], "opacity": [0,1], "delay": 200, "duration": 600, "staggervalue": 100, "easing": "easeOutQuad" }'>{!! $settings['about'] !!}</p>
-                <div class="d-inline-block w-100" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1],  "delay":300, "duration": 600, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                    <a href="{{ url('tentang-kami') }}" class="btn btn-small btn-double-border btn-border-color-white me-25px xs-me-15px">
-                        <span>
-                            <span class="btn-double-text text-light" data-text="Explorer More">Explorer More</span>
-                            <span><i class="fa-solid fa-arrow-right text-light"></i></span>
-                        </span>
+<section class="extra-big-section background-position-center-bottom background-size-contain background-no-repeat position-relative pt-0" style="background-image:url('web/images/demo-travel-agency-home-bg-02.png');">
+    <div class="position-absolute left-0px bottom-minus-50px d-none d-lg-inline-block" data-bottom-top="transform: translateY(-50px)" data-top-bottom="transform: translateY(50px)">
+        <img src="{{ asset('images/king_emran.png') }}" class="w-85px" alt="" />
+    </div>
+    <div class="container background-position-right background-no-repeat sm-mb-10 xs-mb-15" style="background-image:url('{{ asset('images/demo-travel-agency-home-bg.png') }}');">
+        <div class="row align-items-center position-relative mb-7">
+            <div class="position-absolute left-0px top-0px h-100 w-130px border-end border-color-extra-medium-gray d-none d-md-inline-block" data-anime='{ "translateX": [-30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                <div class="vertical-title-center align-items-center justify-content-center">
+                    <div class="title fs-24 alt-font text-base-color fw-600 text-uppercase">Langkah pasti ke Baitullah</div>
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-2 d-none d-md-inline-block"><div class="divider-dot d-flex align-items-center w-100 h-200px"></div></div>
+            <div class="col-lg-5 col-md-9 offset-md-1" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 800, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                <h1 class="alt-font fw-600 text-dark-gray ls-minus-3px w-90 xl-w-100 mb-30px">{{ $settings['motto'] }}</h1>
+                <p class="w-75 lg-w-100">{!! $settings['about'] !!}</p>
+                <div class="d-inline-block mt-5px">
+                    <a href="{{ $whatsappUrl($settings['kontak_telepon'] ?? '') }}" class="btn btn-large btn-round-edge btn-dark-gray btn-hover-animation btn-box-shadow me-25px">
+                                <span>
+                                    <span class="btn-text">Customer Service</span><span class="btn-icon"><i class="fa-brands fa-whatsapp"></i></span>
+                                </span>
                     </a>
-                    <div class="fw-500 d-inline-block align-middle text-light fs-18 xs-mt-20px xs-mb-20px"><i class="bi bi-telephone-outbound icon-small me-10px"></i><a class="text-light" href="{{ $whatsappUrl($settings['kontak_telepon'] ?? '') }}" target="_blank" rel="noopener">{{ $settings['kontak_telepon'] }}</a></div>
+                    <a href="{{ url('/tentang-kami') }}" class="btn btn-link-gradient expand btn-extra-large text-dark-gray text-dark-gray-hover ls-0px">Tentang Kami<span class="bg-dark-gray"></span></a>
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-5 position-relative offset-lg-1 offset-md-2">
-{{--                <span class="position-absolute fs-75 left-20px top-80px text-gold-light fw-600 z-index-1 ls-minus-4px lg-top-40px"  data-anime='{ "opacity": [0,1], "duration": 600, "delay": 1000, "staggervalue": 100, "easing": "easeOutQuad" }'><span class="fs-15 d-table lh-16 text-uppercase text-medium-gray fw-500 ls-1px">Started in</span>1995</span>--}}
-                <div class="w-80 overflow-hidden position-relative md-w-90 border-radius-6px float-end" data-anime='{ "effect": "slide", "color": "#F1D27A", "direction":"rl", "easing": "easeOutQuad", "duration": 600, "delay":500}'>
-                    <img class="w-100" src="{{ $foto_spa_1 }}" alt="" >
-                </div>
-                <div class="position-absolute left-minus-70px bottom-minus-30px w-60 overflow-hidden md-left-minus-100px sm-left-15px" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)" data-anime='{ "effect": "slide", "color": "#D4AF37", "direction":"lr", "easing": "easeOutQuad", "duration": 600, "delay":500}'>
-                    <img class="w-100 border-radius-6px" src="{{ $foto_spa_2 }}" alt="">
-                </div>
+            <div class="col-lg-4 col-md-8 position-relative offset-lg-1 offset-md-4 ps-0 sm-ps-15px md-mt-50px" data-anime='{ "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
+                <img src="{{ $about_image_1 }}" class="border-radius-6px md-w-100" alt="">
+                <img class="position-absolute left-minus-120px top-80px sm-top-0px sm-w-160px sm-left-0px w-240px" src="{{ $about_image_2 }}" alt="" data-bottom-top="transform: translateY(50px)" data-top-bottom="transform: translateY(-50px)">
             </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-4 row-cols-sm-2 text-center text-sm-start">
-
-            <div class="col sm-mb-30px">
-                <h2 class="fw-600 text-base-color m-0">{{ number_format($totalVisitors) }}</h2>
-                <p class="text-light">Total Visitor</p>
+        <div class="row row-cols-1 row-cols-lg-4 row-cols-sm-2 justify-content-center" data-anime='{ "el": "childs", "rotateZ": [5, 0], "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+            <!-- start features box item -->
+            <div class="col icon-with-text-style-01 md-mb-30px">
+                <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
+                    <div class="feature-box-icon">
+                        <i class="line-icon-Medal-2 icon-large text-base-color"></i>
+                    </div>
+                    <div class="feature-box-content">
+                        <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">Pelayanan Terbaik</span>
+                        <p class="lh-24">Melayani sepenuh hati</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="col sm-mb-30px">
-                <h2 class="fw-600 text-base-color m-0">{{ number_format($todayVisitors) }}</h2>
-                <p class="text-light">Visitor Hari Ini</p>
+            <!-- end features box item -->
+            <!-- start features box item -->
+            <div class="col icon-with-text-style-01 md-mb-30px">
+                <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
+                    <div class="feature-box-icon">
+                        <i class="line-icon-Money icon-large text-base-color"></i>
+                    </div>
+                    <div class="feature-box-content">
+                        <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">Harga Terjangkau</span>
+                        <p class="lh-24">Paket sesuai kebutuhan</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="col sm-mb-30px">
-                <h2 class="fw-600 text-base-color m-0">{{ number_format($monthVisitors) }}</h2>
-                <p class="text-light">Visitor Bulan Ini</p>
+            <!-- end features box item -->
+            <!-- start features box item -->
+            <div class="col icon-with-text-style-01 xs-mb-30px">
+                <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
+                    <div class="feature-box-icon">
+                        <i class="line-icon-Add-UserStar icon-large text-base-color"></i>
+                    </div>
+                    <div class="feature-box-content">
+                        <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">Pembimbing Ahli</span>
+                        <p class="lh-24">Ibadah lebih terarah</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="col">
-                <h2 class="fw-600 text-base-color m-0">{{ number_format($yearVisitors) }}</h2>
-                <p class="text-light">Visitor Tahun Ini</p>
+            <!-- end features box item -->
+            <!-- start features box item -->
+            <div class="col icon-with-text-style-01">
+                <div class="feature-box feature-box-left-icon-middle last-paragraph-no-margin">
+                    <div class="feature-box-icon">
+                        <i class="line-icon-Police icon-large text-base-color"></i>
+                    </div>
+                    <div class="feature-box-content">
+                        <span class="d-inline-block alt-font text-dark-gray fw-500 fs-22 lg-fs-20 ls-minus-05px">Aman & Terpercaya</span>
+                        <p class="lh-24">Perjalanan lebih tenang</p>
+                    </div>
+                </div>
             </div>
-
+            <!-- end features box item -->
         </div>
-
     </div>
 </section>
 <!-- end section -->

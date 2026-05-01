@@ -18,8 +18,8 @@ const editorRef = ref(null)
 const cropperImage = ref(null)
 const cropperModal = ref(null)
 const previewUrls = ref({
-    foto_spa_1: props.settings.foto_spa_1 ? `/storage/${props.settings.foto_spa_1}` : null,
-    foto_spa_2: props.settings.foto_spa_2 ? `/storage/${props.settings.foto_spa_2}` : null,
+    about_image_1: props.settings.about_image_1 ? `/storage/${props.settings.about_image_1}` : null,
+    about_image_2: props.settings.about_image_2 ? `/storage/${props.settings.about_image_2}` : null,
 })
 
 const currentPhotoKey = ref(null)
@@ -34,10 +34,10 @@ FORM
 const form = useForm({
     motto: props.settings.motto || '',
     about: props.settings.about || '',
-    foto_spa_1: null,
-    foto_spa_2: null,
-    remove_foto_spa_1: false,
-    remove_foto_spa_2: false,
+    about_image_1: null,
+    about_image_2: null,
+    remove_about_image_1: false,
+    remove_about_image_2: false,
 
     kontak_telepon: props.settings.kontak_telepon || '',
     kontak_email: props.settings.kontak_email || '',
@@ -57,12 +57,12 @@ SAVE
 const save = () => {
     form.about = quill.root.innerHTML
 
-    if (!form.foto_spa_1 && !form.remove_foto_spa_1) {
-        delete form.foto_spa_1
+    if (!form.about_image_1 && !form.remove_about_image_1) {
+        delete form.about_image_1
     }
 
-    if (!form.foto_spa_2 && !form.remove_foto_spa_2) {
-        delete form.foto_spa_2
+    if (!form.about_image_2 && !form.remove_about_image_2) {
+        delete form.about_image_2
     }
 
     form
@@ -125,10 +125,17 @@ const openCropper = (e) => {
         modal.show()
 
         nextTick(() => {
+            let ratio = 1 // default
+
+            if (currentPhotoKey.value === 'about_image_1') {
+                ratio = 3 / 4
+            } else if (currentPhotoKey.value === 'about_image_2') {
+                ratio = 1 // 1:1
+            }
             cropper?.destroy()
 
             cropper = new Cropper(cropperImage.value, {
-                aspectRatio: 3/4,
+                aspectRatio: ratio,
                 viewMode: 1,
                 autoCropArea: 1,
                 responsive: true,
@@ -231,20 +238,20 @@ onBeforeUnmount(() => {
                 <div class="row">
                     <!-- FOTO 1 -->
                     <div class="col-md-6 mb-7">
-                        <label>Foto Spa 1</label>
+                        <label>Foto Tentang 1</label>
 
                         <input type="file" ref="fileInput" class="d-none" @change="openCropper" />
 
                         <div class="card p-5 text-center">
-                            <div v-if="!previewUrls.foto_spa_1" @click="triggerFileInput('foto_spa_1')" class="border p-5 cursor-pointer">
+                            <div v-if="!previewUrls.about_image_1" @click="triggerFileInput('about_image_1')" class="border p-5 cursor-pointer">
                                 Upload Foto
                             </div>
 
                             <div v-else>
-                                <img :src="previewUrls.foto_spa_1" style="width:150px;border-radius:10px" />
+                                <img :src="previewUrls.about_image_1" style="width:150px;border-radius:10px" />
                                 <div class="mt-3">
-                                    <button class="btn btn-light btn-sm me-2" @click="triggerFileInput('foto_spa_1')">Edit</button>
-                                    <button class="btn btn-danger btn-sm" @click="removeImage('foto_spa_1')">Remove</button>
+                                    <button class="btn btn-light btn-sm me-2" @click="triggerFileInput('about_image_1')">Edit</button>
+                                    <button class="btn btn-danger btn-sm" @click="removeImage('about_image_1')">Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -252,18 +259,18 @@ onBeforeUnmount(() => {
 
                     <!-- FOTO 2 -->
                     <div class="col-md-6 mb-7">
-                        <label>Foto Spa 2</label>
+                        <label>Foto Tentang 2</label>
 
                         <div class="card p-5 text-center">
-                            <div v-if="!previewUrls.foto_spa_2" @click="triggerFileInput('foto_spa_2')" class="border p-5 cursor-pointer">
+                            <div v-if="!previewUrls.about_image_2" @click="triggerFileInput('about_image_2')" class="border p-5 cursor-pointer">
                                 Upload Foto
                             </div>
 
                             <div v-else>
-                                <img :src="previewUrls.foto_spa_2" style="width:150px;border-radius:10px" />
+                                <img :src="previewUrls.about_image_2" style="width:150px;border-radius:10px" />
                                 <div class="mt-3">
-                                    <button class="btn btn-light btn-sm me-2" @click="triggerFileInput('foto_spa_2')">Edit</button>
-                                    <button class="btn btn-danger btn-sm" @click="removeImage('foto_spa_2')">Remove</button>
+                                    <button class="btn btn-light btn-sm me-2" @click="triggerFileInput('about_image_2')">Edit</button>
+                                    <button class="btn btn-danger btn-sm" @click="removeImage('about_image_2')">Remove</button>
                                 </div>
                             </div>
                         </div>
