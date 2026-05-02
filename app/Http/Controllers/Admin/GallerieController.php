@@ -73,6 +73,7 @@ class GallerieController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'title' => 'nullable|string|max:255',
             'type' => 'required|in:image,youtube',
@@ -82,7 +83,7 @@ class GallerieController extends Controller
             'tour_package_id' => ['nullable', 'exists:tour_packages,id'],
         ]);
 
-        $data = $request->only(['title', 'type', 'youtube_url', 'is_active']);
+        $data = $request->only(['title', 'type', 'youtube_url', 'is_active','tour_package_id']);
 
         // upload image
         if ($request->hasFile('image')) {
@@ -127,7 +128,7 @@ class GallerieController extends Controller
 
             'image' => 'nullable|image|max:2048',
             'youtube_url' => 'nullable|url',
-
+            'tour_package_id' => ['nullable', 'exists:tour_packages,id'],
             'is_active' => 'boolean'
         ]);
 
@@ -173,6 +174,7 @@ class GallerieController extends Controller
         // ======================================
 
         $gallery->title = $request->title;
+        $gallery->tour_package_id = $request->tour_package_id;
         $gallery->type = $request->type;
         $gallery->is_active = $request->is_active ?? false;
 

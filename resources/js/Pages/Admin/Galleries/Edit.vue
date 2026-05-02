@@ -126,12 +126,25 @@ SAVE (UPDATE)
 ========================= */
 
 const save = () => {
-    form.post(route('admin.galleries.update', props.gallery.id), {
-        method: 'put',
-        forceFormData: true
-    })
+    form
+        .transform((data) => ({
+            ...data,
+            _method: props.gallery ? 'put' : undefined,
+            tour_package_id: data.tour_package_id || null, // 🔥 fix
+            is_active: data.is_active ? 1 : 0
+        }))
+        .post(
+            route(
+                props.gallery
+                    ? 'admin.galleries.update'
+                    : 'admin.galleries.store',
+                props.gallery?.id
+            ),
+            {
+                forceFormData: true
+            }
+        )
 }
-
 /* =========================
 WATCH TYPE
 ========================= */
@@ -266,7 +279,7 @@ onBeforeUnmount(() => {
                                 <!-- EMPTY -->
                                 <div
                                     v-if="!previewUrl"
-                                    class="border border-2 border-dashed rounded p-10 cursor-pointer"
+                                    class="border border-2 border-dashed rounded p-10 cursor-pointer bg-light"
                                     @click="triggerFileInput"
                                 >
                                     Upload Image

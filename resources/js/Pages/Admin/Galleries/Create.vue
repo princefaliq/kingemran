@@ -117,9 +117,15 @@ SAVE
 ========================= */
 
 const save = () => {
-    form.post(route('admin.galleries.store'), {
-        forceFormData: true
-    })
+    form
+        .transform((data) => ({
+            ...data,
+            tour_package_id: data.tour_package_id || null, // 🔥 penting
+            is_active: data.is_active ? 1 : 0
+        }))
+        .post(route('admin.galleries.store'), {
+            forceFormData: true
+        })
 }
 
 /* =========================
@@ -254,8 +260,7 @@ onBeforeUnmount(() => {
                                 <!-- EMPTY -->
                                 <div
                                     v-if="!previewUrl"
-                                    class="border border-2 border-dashed rounded p-10 cursor-pointer"
-                                    style="background:#f8f9fa"
+                                    class="border border-2 border-dashed rounded p-10 cursor-pointer bg-light"
                                     @click="triggerFileInput"
                                 >
                                     Upload Image
