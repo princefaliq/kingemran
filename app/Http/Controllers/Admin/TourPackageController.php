@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\TourPackage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -78,58 +79,78 @@ class TourPackageController extends Controller
      */
     public function store(Request $request)
     {
-        // ✅ VALIDASI
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
-            'duration' => 'required|integer|min:1',
-            'duration_type' => 'required|in:days,nights',
 
-            'price' => 'required|numeric|min:0',
-            'price_discount' => 'nullable|numeric|min:0',
 
-            'location' => 'nullable|string|max:255',
-            'departure_city' => 'nullable|string|max:255',
+        DB::transaction(function () use ($request) {
+            // ✅ VALIDASI
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
-            'departure_date' => 'nullable|date',
+                'duration' => 'required|integer|min:1',
+                'duration_type' => 'required|in:days,nights',
 
-            'airline' => 'nullable|string|max:255',
-            'hotel' => 'nullable|string|max:255',
+                'price' => 'required|numeric|min:0',
+                'price_discount' => 'nullable|numeric|min:0',
 
-            'quota' => 'nullable|integer|min:1',
+                'location' => 'nullable|string|max:255',
+                'departure_city' => 'nullable|string|max:255',
 
-            'short_description' => 'nullable|string|max:500',
-            'description' => 'nullable|string',
+                'departure_date' => 'nullable|date',
 
-            'is_featured' => 'boolean',
-            'is_active' => 'boolean',
-        ]);
+                'airline' => 'nullable|string|max:255',
+                'hotel' => 'nullable|string|max:255',
 
-        // ✅ SLUG AUTO (UNIQUE)
-        $slug = Str::slug($validated['title']);
-        $originalSlug = $slug;
-        $count = 1;
+                'quota' => 'nullable|integer|min:1',
 
-        while (\App\Models\TourPackage::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $count++;
-        }
+                'short_description' => 'nullable|string|max:500',
+                'description' => 'nullable|string',
 
-        $validated['slug'] = $slug;
+                'is_featured' => 'boolean',
+                'is_active' => 'boolean',
+            ]);
+            // ✅ SLUG AUTO (UNIQUE)
+            $slug = Str::slug($validated['title']);
+            $originalSlug = $slug;
+            $count = 1;
 
-        // ✅ HANDLE CHECKBOX (biar tidak null)
-        $validated['is_featured'] = $request->boolean('is_featured');
-        $validated['is_active'] = $request->boolean('is_active', true);
+            while (\App\Models\TourPackage::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
+            }
 
-        // ✅ UPLOAD THUMBNAIL
-        if ($request->hasFile('thumbnail')) {
-            $validated['thumbnail'] = $request->file('thumbnail')
-                ->store('tour-packages', 'public');
-        }
+            $validated['slug'] = $slug;
 
-        // ✅ SIMPAN
-        TourPackage::create($validated);
+            // ✅ HANDLE CHECKBOX (biar tidak null)
+            $validated['is_featured'] = $request->boolean('is_featured');
+            $validated['is_active'] = $request->boolean('is_active', true);
 
+            // ✅ UPLOAD THUMBNAIL
+            if ($request->hasFile('thumbnail')) {
+                $validated['thumbnail'] = $request->file('thumbnail')
+                    ->store('tour-packages', 'public');
+            }
+
+            // ✅ SIMPAN
+            $package =TourPackage::create($validated);
+
+            // 🔥 ITEMS
+            foreach ($request->items as $item) {
+                $package->items()->create([
+                    'type' => $item['type'],
+                    'name' => $item['name'],
+                ]);
+            }
+
+            // 🔥 ITINERARIES
+            foreach ($request->itineraries as $itinerary) {
+                $package->itineraries()->create([
+                    'day' => $itinerary['day'],
+                    'title' => $itinerary['title'],
+                    'description' => $itinerary['description'] ?? null,
+                ]);
+            }
+        });
         return redirect()
             ->route('admin.tour-packages.index')
             ->with('success', 'Package berhasil ditambahkan.');
@@ -222,8 +243,18 @@ class TourPackageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(TourPackage $tourPackage)
     {
-        //
+        DB::transaction(function () use ($tourPackage) {
+
+            // 🔥 hapus relasi dulu (biar aman walau tanpa cascade)
+            $tourPackage->items()->delete();
+            $tourPackage->itineraries()->delete();
+
+            // 🔥 hapus package
+            $tourPackage->delete();
+        });
+
+        return back()->with('success', 'Tour Package berhasil dihapus');
     }
 }

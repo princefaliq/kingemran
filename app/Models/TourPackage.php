@@ -32,4 +32,14 @@ class TourPackage extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
+    // TourPackage.php
+    public function items()
+    {
+        return $this->hasMany(PackageItem::class);
+    }
+
+    public function itineraries()
+    {
+        return $this->hasMany(Itinerary::class);
+    }
 }

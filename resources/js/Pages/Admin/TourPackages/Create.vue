@@ -24,7 +24,15 @@ const form = useForm({
     description: '',
     thumbnail: null,
     is_featured: false,
-    is_active: true
+    is_active: true,
+    // 🔥 NEW
+    items: [
+        { type: 'include', name: '' }
+    ],
+
+    itineraries: [
+        { day: 1, title: '', description: '' }
+    ]
 })
 
 /* =========================
@@ -309,7 +317,110 @@ onBeforeUnmount(() => {
                         <label class="form-label">Description</label>
                         <textarea class="form-control" rows="5" v-model="form.description"></textarea>
                     </div>
+                    <!-- PACKAGE ITEMS -->
+                    <div class="mb-10">
+                        <h4 class="fw-bold mb-3">Package Items</h4>
 
+                        <div v-for="(item, index) in form.items" :key="index" class="row mb-3">
+
+                            <div class="col-md-3">
+                                <select class="form-select" v-model="item.type">
+                                    <option value="include">Include</option>
+                                    <option value="exclude">Exclude</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-7">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    v-model="item.name"
+                                    placeholder="Item name"
+                                />
+                            </div>
+
+                            <div class="col-md-2 d-flex gap-2">
+                                <button
+                                    type="button"
+                                    class="btn btn-light-danger"
+                                    @click="form.items.splice(index, 1)"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn btn-light-primary"
+                            @click="form.items.push({ type: 'include', name: '' })"
+                        >
+                            + Add Item
+                        </button>
+                    </div>
+                    <!-- ITINERARIES -->
+                    <div class="mb-10">
+                        <h4 class="fw-bold mb-3">Itineraries</h4>
+
+                        <div
+                            v-for="(itinerary, index) in form.itineraries"
+                            :key="index"
+                            class="card mb-3"
+                        >
+                            <div class="card-body">
+
+                                <div class="row mb-3">
+                                    <div class="col-md-2">
+                                        <label>Day</label>
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            v-model="itinerary.day"
+                                        />
+                                    </div>
+
+                                    <div class="col-md-10">
+                                        <label>Title</label>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            v-model="itinerary.title"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label>Description</label>
+                                    <textarea
+                                        class="form-control"
+                                        v-model="itinerary.description"
+                                    ></textarea>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-light-danger"
+                                    @click="form.itineraries.splice(index, 1)"
+                                >
+                                    Remove
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn btn-light-primary"
+                            @click="form.itineraries.push({
+                                day: form.itineraries.length + 1,
+                                title: '',
+                                description: ''
+                            })"
+                        >
+                            + Add Day
+                        </button>
+                    </div>
                     <!-- STATUS -->
                     <div class="row">
                         <div class="col-md-6">

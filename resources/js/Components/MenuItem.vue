@@ -170,8 +170,8 @@ const isRouteActive = (routes) => {
             <div data-kt-menu-trigger="click" :class="[
                 'menu-item menu-accordion',
                     {
-                      here: isRouteActive(['admin.tags.*', 'admin.articles.*', 'admin.categories.*']),
-                      show: isRouteActive(['admin.tags.*', 'admin.articles.*', 'admin.categories.*'])
+                      here: isRouteActive(['admin.package-items.*', 'admin.tour-packages.*', 'admin.itineraries.*']),
+                      show: isRouteActive(['admin.package-items.*', 'admin.tour-packages.*', 'admin.itineraries.*'])
                     }
                 ]"
                  v-if="$page.props.auth.permissions.includes('tour-packages')"
@@ -206,7 +206,7 @@ const isRouteActive = (routes) => {
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Packages</span>
+                            <span class="menu-title">Tour Packages</span>
                         </Link>
                         <!--end:Menu link-->
                     </div>
@@ -215,15 +215,15 @@ const isRouteActive = (routes) => {
                     <div class="menu-item">
                         <!--begin:Menu link-->
                         <Link
-                            :href="route('admin.categories.index')"
+                            :href="route('admin.package-items.index')"
                             class="menu-link"
-                            :class="{ active: route().current('admin.categories.*') }"
+                            :class="{ active: route().current('admin.package-items.*') }"
                             v-if="$page.props.auth.permissions.includes('tour-packages')"
                         >
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Item</span>
+                            <span class="menu-title">Package Item</span>
                         </Link>
                         <!--end:Menu link-->
                     </div>
@@ -232,9 +232,9 @@ const isRouteActive = (routes) => {
                     <div class="menu-item">
                         <!--begin:Menu link-->
                         <Link
-                            :href="route('admin.tags.index')"
+                            :href="route('admin.itineraries.index')"
                             class="menu-link"
-                            :class="{ active: route().current('admin.tags.*') }"
+                            :class="{ active: route().current('admin.itineraries.*') }"
                             v-if="$page.props.auth.permissions.includes('tour-packages')"
                         >
                             <span class="menu-bullet">

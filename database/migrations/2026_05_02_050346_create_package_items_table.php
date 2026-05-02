@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('package_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tour_package_id')->constrained()->cascadeOnDelete();
-
             $table->enum('type', ['include', 'exclude']);
             $table->string('name');
-            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }

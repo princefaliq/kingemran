@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\BanerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\GallerieController;
+use App\Http\Controllers\Admin\ItineraryController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\PackageItemController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -80,6 +82,10 @@ Route::middleware('auth')->group(callback: function () {
         Route::patch('tour-packages/{tourPackage}/status', [TourPackageController::class, 'updateStatus'])
             ->name('tour-packages.update-status');
         Route::resource('tour-packages', TourPackageController::class);
+
+        Route::resource('package-items',PackageItemController::class);
+
+        Route::resource('itineraries', ItineraryController::class);
     });
 
     Route::middleware('permission:settings')->prefix('settings')->name('settings.')->group(function () {
