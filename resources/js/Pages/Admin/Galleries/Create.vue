@@ -13,9 +13,12 @@ const form = useForm({
     type: 'image',
     image: null,
     youtube_url: '',
+    tour_package_id: '', // ✅ tambahkan ini
     is_active: true
 })
-
+const props = defineProps({
+    packages: Array
+})
 /* =========================
 REFS
 ========================= */
@@ -193,7 +196,31 @@ onBeforeUnmount(() => {
                             {{ form.errors.title }}
                         </div>
                     </div>
+                    <!-- PACKAGE -->
+                    <div class="mb-5">
+                        <label class="form-label">Package (Optional)</label>
 
+                        <select v-model="form.tour_package_id" class="form-select">
+                            <option value="">Global</option>
+                            <option
+                                v-for="pkg in props.packages"
+                                :key="pkg.id"
+                                :value="pkg.id"
+                            >
+                                {{ pkg.title }}
+                            </option>
+                        </select>
+
+                        <div class="form-text">
+                            Kosongkan jika ini galeri umum (homepage / gallery page)
+                        </div>
+                        <div v-if="!form.tour_package_id" class="text-muted mt-2">
+                            → Akan tampil sebagai galeri umum
+                        </div>
+                        <div v-if="form.errors.tour_package_id" class="text-danger mt-2">
+                            {{ form.errors.tour_package_id }}
+                        </div>
+                    </div>
                     <!-- TYPE -->
                     <div class="mb-5">
                         <label class="form-label">Type</label>

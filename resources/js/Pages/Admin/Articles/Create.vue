@@ -274,10 +274,10 @@ watch(() => form.status, (val) => {
                                 <!-- EMPTY STATE -->
                                 <div
                                     v-if="!previewUrl"
-                                    class="border border-2 border-dashed rounded p-10 cursor-pointer hover-opacity bg-gray-600"
+                                    class="border border-2 border-dashed rounded p-10 cursor-pointer hover-opacity bg-light"
                                     @click="triggerFileInput"
                                 >
-                                    <i class="ki-duotone ki-add-item fs-3x text-gray-100">
+                                    <i class="ki-duotone ki-add-item fs-3x">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                         <span class="path3"></span>

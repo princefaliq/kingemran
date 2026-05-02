@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Gallerie;
+use App\Models\TourPackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,13 +15,20 @@ class GallerieController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Gallerie::query();
+        $query = Gallerie::with('tourPackage');
 
         // 🔍 SEARCH (by title)
         if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
+        if ($request->filled('package')) {
+            if ($request->package === 'global') {
+                $query->whereNull('tour_package_id');
+            } elseif ($request->package === 'package') {
+                $query->whereNotNull('tour_package_id');
+            }
+        }
         // 🔃 SORTING
         $allowedSorts = ['id', 'title', 'type', 'created_at'];
 
@@ -46,7 +54,7 @@ class GallerieController extends Controller
 
         return inertia('Admin/Galleries/Index', [
             'galleries' => $galleries,
-            'filters' => $request->only(['search', 'sort', 'direction'])
+            'filters' => $request->only(['search', 'sort', 'direction', 'package'])
         ]);
     }
 
@@ -55,7 +63,9 @@ class GallerieController extends Controller
      */
     public function create()
     {
-        return inertia('Admin/Galleries/Create');
+        return inertia('Admin/Galleries/Create', [
+            'packages' => TourPackage::select('id', 'title')->get()
+        ]);
     }
 
     /**
@@ -68,7 +78,8 @@ class GallerieController extends Controller
             'type' => 'required|in:image,youtube',
             'image' => 'required_if:type,image|nullable|image|max:2048',
             'youtube_url' => 'required_if:type,youtube|nullable|url',
-            'is_active' => 'boolean'
+            'is_active' => 'boolean',
+            'tour_package_id' => ['nullable', 'exists:tour_packages,id'],
         ]);
 
         $data = $request->only(['title', 'type', 'youtube_url', 'is_active']);
@@ -99,7 +110,8 @@ class GallerieController extends Controller
     public function edit(Gallerie $gallery)
     {
         return inertia('Admin/Galleries/Edit', [
-            'gallery' => $gallery
+            'gallery' => $gallery,
+            'packages' => TourPackage::select('id', 'title')->get()
         ]);
     }
 

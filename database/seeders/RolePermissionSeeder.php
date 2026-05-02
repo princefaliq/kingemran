@@ -29,8 +29,7 @@ class RolePermissionSeeder extends Seeder
             'settings',
             'galleries',
             'employees',
-            'services',
-            'spa-programs',
+            'tour-packages',
             'testimonials',
             'partners',
         ];

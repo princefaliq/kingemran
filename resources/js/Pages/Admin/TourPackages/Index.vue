@@ -5,7 +5,7 @@ import { ref } from 'vue'
 import Pagination from '@/Components/Pagination.vue'
 
 const props = defineProps({
-    testimonials: Object,
+    packages: Object,
     filters: Object
 })
 
@@ -14,7 +14,7 @@ const sort = ref(props.filters.sort || 'id')
 const direction = ref(props.filters.direction || 'desc')
 
 const reload = () => {
-    router.get(route('admin.testimonials.index'), {
+    router.get(route('admin.tour-packages.index'), {
         search: search.value,
         sort: sort.value,
         direction: direction.value
@@ -23,7 +23,14 @@ const reload = () => {
         replace: true
     })
 }
-
+const toggleStatus = (item) => {
+    router.patch(route('admin.tour-packages.update-status', item.id), {
+        is_active: !item.is_active
+    }, {
+        preserveScroll: true,
+        onSuccess: () => reload()
+    })
+}
 const sortBy = (field) => {
     if (sort.value === field) {
         direction.value = direction.value === 'asc' ? 'desc' : 'asc'
@@ -31,29 +38,20 @@ const sortBy = (field) => {
         sort.value = field
         direction.value = 'asc'
     }
-
     reload()
 }
 
-const toggleStatus = (item) => {
-    router.patch(route('admin.testimonials.update-status', item.id), {
-        is_active: !item.is_active
-    }, {
-        preserveScroll: true
-    })
-}
-
-const confirmDelete = (id, name) => {
+const confirmDelete = (id, title) => {
     if (!window.Swal) {
-        if (confirm(`Yakin hapus testimoni dari ${name}?`)) {
-            router.delete(route('admin.testimonials.destroy', id))
+        if (confirm(`Yakin hapus Package ${title}?`)) {
+            router.delete(route('admin.tour-packages.destroy', id))
         }
         return
     }
 
     window.Swal.fire({
         title: 'Yakin?',
-        text: `Testimoni dari "${name}" akan dihapus!`,
+        text: `Package "${title}" akan dihapus!`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Ya, hapus!',
@@ -62,20 +60,22 @@ const confirmDelete = (id, name) => {
         cancelButtonColor: '#3085d6',
     }).then((result) => {
         if (result.isConfirmed) {
-            router.delete(route('admin.testimonials.destroy', id))
+            router.delete(route('admin.tour-packages.destroy', id))
         }
     })
 }
 </script>
 
 <template>
-    <Head title="Testimonials" />
+    <Head title="Tour Packages" />
 
     <AdminLayout>
+
+        <!-- TOOLBAR -->
         <template #Toolbar>
             <div class="toolbar mb-5 mb-lg-7">
                 <div class="page-title d-flex flex-column me-3">
-                    <h1 class="d-flex text-gray-900 fw-bold my-1 fs-3">Testimonials</h1>
+                    <h1 class="d-flex text-gray-900 fw-bold my-1 fs-3">Tour Packages</h1>
 
                     <ul class="breadcrumb breadcrumb-dot fw-semibold text-gray-600 fs-7 my-1">
                         <li class="breadcrumb-item">
@@ -83,7 +83,7 @@ const confirmDelete = (id, name) => {
                                 Dashboard
                             </Link>
                         </li>
-                        <li class="breadcrumb-item">Testimonials</li>
+                        <li class="breadcrumb-item">Tour Packages</li>
                         <li class="breadcrumb-item">List</li>
                     </ul>
                 </div>
@@ -94,10 +94,14 @@ const confirmDelete = (id, name) => {
                             v-model="search"
                             @input="reload"
                             type="text"
-                            placeholder="Search testimonial..."
+                            placeholder="Search package..."
                             class="form-control"
                         />
                     </div>
+
+                    <Link :href="route('admin.tour-packages.create')" class="btn btn-dark fw-bold">
+                        Create
+                    </Link>
                 </div>
             </div>
         </template>
@@ -105,62 +109,83 @@ const confirmDelete = (id, name) => {
         <div class="row g-5 g-lg-12">
             <div class="col-xl-12 mb-xl-10">
                 <div class="card h-md-100">
+
                     <div class="card-header border-0 py-5">
                         <div class="card-title m-0">
-                            <h3 class="fw-bold m-0">List Testimonials</h3>
+                            <h3 class="fw-bold m-0">List Tour Packages</h3>
                         </div>
                     </div>
 
                     <div class="card-body">
                         <div class="table-responsive table-loading">
+
                             <table class="table table-striped table-rounded table-row-bordered border gs-5">
                                 <thead>
                                 <tr class="fw-bold fs-6 text-gray-800">
-                                    <th @click="sortBy('name')" style="cursor:pointer">Nama</th>
-                                    <th>Package</th>
-                                    <th>Testimoni</th>
-                                    <th>Rating</th>
-                                    <th @click="sortBy('is_active')" style="cursor:pointer">Status</th>
+                                    <th>Thumbnail</th>
+                                    <th @click="sortBy('title')" style="cursor:pointer">Title</th>
+                                    <th>Duration</th>
+                                    <th>Price</th>
+                                    <th>Location</th>
                                     <th @click="sortBy('created_at')" style="cursor:pointer">Created</th>
                                     <th class="text-end">Action</th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-                                <tr v-for="item in testimonials.data" :key="item.id">
-                                    <td class="align-middle">{{ item.name }}</td>
+                                <tr v-for="item in packages.data" :key="item.id">
 
+                                    <!-- THUMB -->
                                     <td class="align-middle">
-                                        <span v-if="item.tour_package" class="badge badge-light-info">
-                                            {{ item.tour_package.title }}
-                                        </span>
-                                        <span v-else class="badge badge-light-secondary">
-                                            Global
-                                        </span>
+                                        <img
+                                            :src="item.thumbnail_url"
+                                            style="width:80px; height:60px; object-fit:cover; border-radius:6px;"
+                                        />
                                     </td>
 
+                                    <!-- TITLE -->
                                     <td class="align-middle">
-                                        {{ item.content.length > 100 ? item.content.substring(0, 100) + '...' : item.content }}
-                                    </td>
-                                    <td class="align-middle">
-                                        <span class="text-warning">
-                                            <i v-for="n in item.rating" :key="n" class="bi bi-star-fill"></i>
-                                        </span>
-                                    </td>
-                                    <td class="align-middle">
+                                        <div class="fw-bold">{{ item.title }}</div>
+
                                         <span
-                                            class="badge"
-                                            :class="item.is_active ? 'badge-light-success' : 'badge-light-warning'"
+                                            v-if="item.is_featured"
+                                            class="badge badge-light-warning mt-1"
                                         >
-                                            {{ item.is_active ? 'Active' : 'Pending' }}
+                                            Featured
                                         </span>
                                     </td>
 
+                                    <!-- DURATION -->
+                                    <td class="align-middle">
+                                        {{ item.duration }} {{ item.duration_type }}
+                                    </td>
+
+                                    <!-- PRICE -->
+                                    <td class="align-middle">
+                                        <div class="fw-bold">
+                                            Rp {{ Number(item.price).toLocaleString() }}
+                                        </div>
+
+                                        <div
+                                            v-if="item.price_discount"
+                                            class="text-muted text-decoration-line-through small"
+                                        >
+                                            Rp {{ Number(item.price_discount).toLocaleString() }}
+                                        </div>
+                                    </td>
+
+                                    <!-- LOCATION -->
+                                    <td class="align-middle">
+                                        {{ item.location ?? '-' }}
+                                    </td>
+
+                                    <!-- CREATED -->
                                     <td class="align-middle">
                                         {{ item.created_at_formatted ?? item.created_at }}
                                     </td>
 
-                                    <td class="text-end">
+                                    <!-- ACTION -->
+                                    <td class="align-middle text-end">
                                         <button
                                             @click="toggleStatus(item)"
                                             class="btn btn-icon btn-sm me-2"
@@ -168,35 +193,45 @@ const confirmDelete = (id, name) => {
                                         >
                                             <i
                                                 class="bi fs-6"
-                                                :class="item.is_active ? 'bi-eye-slash text-warning' : 'bi-check-circle text-success'"
+                                                :class="item.is_active
+                                                ? 'bi-eye-slash text-warning'
+                                                : 'bi-check-circle text-success'"
                                             ></i>
                                         </button>
+                                        <Link
+                                            :href="route('admin.tour-packages.edit', item.id)"
+                                            class="btn btn-icon btn-sm me-2"
+                                        >
+                                            <i class="bi bi-pencil-fill text-primary fs-6"></i>
+                                        </Link>
 
                                         <button
-                                            @click="confirmDelete(item.id, item.name)"
+                                            @click="confirmDelete(item.id, item.title)"
                                             class="btn btn-icon btn-sm"
                                         >
                                             <i class="bi bi-trash3-fill text-danger fs-6"></i>
                                         </button>
+
                                     </td>
                                 </tr>
 
-                                <tr v-if="testimonials.data.length === 0">
+                                <tr v-if="packages.data.length === 0">
                                     <td colspan="7" class="text-center py-10 text-muted">
-                                        No testimonials found
+                                        No packages found
                                     </td>
                                 </tr>
+
                                 </tbody>
                             </table>
+
                         </div>
 
-                        <Pagination :links="testimonials.links" />
+                        <Pagination :links="packages.links" />
+
                     </div>
                 </div>
             </div>
         </div>
+
     </AdminLayout>
 </template>
-
-<style scoped>
-</style>

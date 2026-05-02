@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SpaProgramController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\TourPackageController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -73,6 +74,12 @@ Route::middleware('auth')->group(callback: function () {
     Route::middleware('permission:partners')->group(function () {
         Route::patch('partners/{partner}/status', [PartnerController::class, 'updateStatus'])->name('partners.update-status');
         Route::resource('partners', PartnerController::class);
+    });
+
+    Route::middleware('permission:tour-packages')->group(function () {
+        Route::patch('tour-packages/{tourPackage}/status', [TourPackageController::class, 'updateStatus'])
+            ->name('tour-packages.update-status');
+        Route::resource('tour-packages', TourPackageController::class);
     });
 
     Route::middleware('permission:settings')->prefix('settings')->name('settings.')->group(function () {

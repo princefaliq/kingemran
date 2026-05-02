@@ -167,6 +167,86 @@ const isRouteActive = (routes) => {
                 </Link>
                 <!--end:Menu link-->
             </div>
+            <div data-kt-menu-trigger="click" :class="[
+                'menu-item menu-accordion',
+                    {
+                      here: isRouteActive(['admin.tags.*', 'admin.articles.*', 'admin.categories.*']),
+                      show: isRouteActive(['admin.tags.*', 'admin.articles.*', 'admin.categories.*'])
+                    }
+                ]"
+                 v-if="$page.props.auth.permissions.includes('tour-packages')"
+            >
+                <!--begin:Menu link-->
+                <span class="menu-link">
+                    <span class="menu-icon">
+                        <i class="ki-duotone ki-cheque fs-2">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                            <span class="path4"></span>
+                            <span class="path5"></span>
+                            <span class="path6"></span>
+                            <span class="path7"></span>
+                        </i>
+                    </span>
+                    <span class="menu-title">Tour</span>
+                    <span class="menu-arrow"></span>
+                </span>
+                <!--begin:Menu sub-->
+                <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <Link
+                            :href="route('admin.tour-packages.index')"
+                            class="menu-link"
+                            :class="{ active: route().current('admin.tour-packages.*') }"
+                            v-if="$page.props.auth.permissions.includes('tour-packages')"
+                        >
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Packages</span>
+                        </Link>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <Link
+                            :href="route('admin.categories.index')"
+                            class="menu-link"
+                            :class="{ active: route().current('admin.categories.*') }"
+                            v-if="$page.props.auth.permissions.includes('tour-packages')"
+                        >
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Item</span>
+                        </Link>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <Link
+                            :href="route('admin.tags.index')"
+                            class="menu-link"
+                            :class="{ active: route().current('admin.tags.*') }"
+                            v-if="$page.props.auth.permissions.includes('tour-packages')"
+                        >
+                            <span class="menu-bullet">
+                                <span class="bullet bullet-dot"></span>
+                            </span>
+                            <span class="menu-title">Itineraries</span>
+                        </Link>
+                        <!--end:Menu link-->
+                    </div>
+                </div>
+            </div>
+
             <div data-kt-menu-trigger="click" class="menu-item">
                 <!--begin:Menu link-->
                 <Link
@@ -246,6 +326,7 @@ const isRouteActive = (routes) => {
                 </Link>
                 <!--end:Menu link-->
             </div>
+
             <div data-kt-menu-trigger="click" class="menu-item">
                 <!--begin:Menu link-->
                 <Link

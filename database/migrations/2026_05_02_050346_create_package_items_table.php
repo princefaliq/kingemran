@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('testimonials', function (Blueprint $table) {
+        Schema::create('package_items', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // nama pemberi review
-            $table->foreignId('spa_program_id')->nullable()->constrained('spa_programs')->nullOnDelete();
-            $table->text('content'); // isi review
-            $table->boolean('is_active')->default(false); // tampil / tidak
+            $table->foreignId('tour_package_id')->constrained()->cascadeOnDelete();
+
+            $table->enum('type', ['include', 'exclude']);
+            $table->string('name');
+            $table->integer('order')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('testimonials');
+        Schema::dropIfExists('package_items');
     }
 };

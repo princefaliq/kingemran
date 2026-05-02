@@ -12,12 +12,14 @@ const props = defineProps({
 const search = ref(props.filters.search || '')
 const sort = ref(props.filters.sort || 'id')
 const direction = ref(props.filters.direction || 'desc')
+const packageFilter = ref(props.filters.package || '')
 
 const reload = () => {
     router.get(route('admin.galleries.index'), {
         search: search.value,
         sort: sort.value,
-        direction: direction.value
+        direction: direction.value,
+        package: packageFilter.value // ✅ ini penting
     }, {
         preserveState: true,
         replace: true
@@ -82,6 +84,13 @@ const confirmDelete = (id, title) => {
 
                 <div class="d-flex align-items-center py-2 py-md-1">
                     <div class="me-3">
+                        <select v-model="packageFilter" @change="reload" class="form-select" aria-label="Select example">
+                            <option value="">All Type</option>
+                            <option value="global">Global</option>
+                            <option value="package">Package</option>
+                        </select>
+                    </div>
+                    <div class="me-3">
                         <input
                             v-model="search"
                             @input="reload"
@@ -115,6 +124,7 @@ const confirmDelete = (id, title) => {
                                 <thead>
                                 <tr class="fw-bold fs-6 text-gray-800">
                                     <th @click="sortBy('title')" style="cursor:pointer">Title</th>
+                                    <th>Package</th>
                                     <th>Type</th>
                                     <th>Preview</th>
                                     <th>Status</th>
@@ -130,7 +140,19 @@ const confirmDelete = (id, title) => {
                                     <td class="align-middle">
                                         {{ gallery.title ?? '-' }}
                                     </td>
+                                    <!-- Package -->
+                                    <td class="align-middle">
+                                        <span
+                                            v-if="gallery.tour_package"
+                                            class="badge badge-light-info"
+                                        >
+                                            {{ gallery.tour_package.title }}
+                                        </span>
 
+                                        <span v-else class="badge badge-light-secondary">
+                                            Global
+                                        </span>
+                                    </td>
                                     <!-- Type -->
                                     <td class="align-middle">
                                         <span
@@ -238,7 +260,7 @@ const confirmDelete = (id, title) => {
                                 </tr>
 
                                 <tr v-if="galleries.data.length === 0">
-                                    <td colspan="6" class="text-center py-10 text-muted">
+                                    <td colspan="7" class="text-center py-10 text-muted">
                                         No galleries found
                                     </td>
                                 </tr>

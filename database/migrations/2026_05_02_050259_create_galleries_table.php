@@ -27,6 +27,9 @@ return new class extends Migration
             // opsional
             $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->foreignId('tour_package_id')->nullable()
+                ->constrained()
+                ->cascadeOnDelete();
         });
     }
 

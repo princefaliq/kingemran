@@ -13,10 +13,11 @@ class Testimonial extends Model
         'spa_program_id',
         'content',
         'is_active',
+
     ];
 
-    public function spaProgram()
+    public function tourPackage()
     {
-        return $this->belongsTo(SpaProgram::class);
+        return $this->belongsTo(TourPackage::class);
     }
 }

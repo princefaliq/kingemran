@@ -24,13 +24,15 @@ class TestimonialController extends Controller
             $sort = 'id';
         }
 
-        $testimonials = Testimonial::with('spaProgram')
+        $testimonials = Testimonial::with('tourPackage')
             ->when($search, function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('content', 'like', "%{$search}%")
-                    ->orWhereHas('spaProgram', function ($q) use ($search) {
-                        $q->where('nama_paket', 'like', "%{$search}%");
-                    });
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('content', 'like', "%{$search}%")
+                        ->orWhereHas('tourPackage', function ($q2) use ($search) {
+                            $q2->where('title', 'like', "%{$search}%");
+                        });
+                });
             })
             ->orderBy($sort, $direction)
             ->paginate(10)
@@ -39,12 +41,15 @@ class TestimonialController extends Controller
                 'id' => $item->id,
                 'name' => $item->name,
                 'content' => $item->content,
+                'rating' => $item->rating, // ⭐ tambahkan ini
                 'is_active' => $item->is_active,
                 'created_at' => $item->created_at,
                 'created_at_formatted' => $item->created_at?->format('d M Y H:i'),
-                'spa_program' => $item->spaProgram ? [
-                    'id' => $item->spaProgram->id,
-                    'nama_paket' => $item->spaProgram->nama_paket,
+
+                // ✅ RELASI BARU
+                'tour_package' => $item->tourPackage ? [
+                    'id' => $item->tourPackage->id,
+                    'title' => $item->tourPackage->title,
                 ] : null,
             ]);
 

@@ -14,8 +14,13 @@ class Gallerie extends Model
         'image',
         'youtube_url',
         'is_active',
+        'tour_package_id',
     ];
     protected $appends = ['image_url','youtube_thumbnail'];
+    public function tourPackage()
+    {
+        return $this->belongsTo(TourPackage::class);
+    }
     public function scopeActive($query)
     {
         return $query->where('is_active', 1);
