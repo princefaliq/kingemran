@@ -141,7 +141,7 @@
                                                 @if($youtubeId)
                                                     <a href="https://www.youtube.com/watch?v={{ $youtubeId }}" class="popup-youtube">
                                                         <div class="position-relative gallery-image bg-dark-gray overflow-hidden">
-                                                            <img src="https://img.youtube.com/vi/{{ $youtubeId }}/hqdefault.jpg" alt="">
+                                                            <img src="https://img.youtube.com/vi/{{ $youtubeId }}/hqdefault.jpg" style="max-height: 140px" alt="">
 
                                                             <div class="d-flex align-items-center justify-content-center position-absolute top-0 left-0 w-100 h-100 gallery-hover move-bottom-top">
                                                                 <div class="d-flex align-items-center justify-content-center w-50px h-50px rounded-circle bg-white">
