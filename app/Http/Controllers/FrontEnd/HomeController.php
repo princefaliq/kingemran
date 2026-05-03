@@ -11,6 +11,7 @@ use App\Models\Partner;
 use App\Models\Service;
 use App\Models\SpaProgram;
 use App\Models\Testimonial;
+use App\Models\TourPackage;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -63,7 +64,6 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
-        $employee = Employee::active()->latest()->get();
 
         $testimonials = Testimonial::with('spaProgram')
             ->where('is_active', true)
@@ -72,17 +72,31 @@ class HomeController extends Controller
         $partners = Partner::where('is_active', true)
             ->latest()
             ->get();
+        $packages = TourPackage::withCount([
+                'testimonials as reviews_count' => function ($q) {
+                    $q->where('is_active', true);
+                }
+            ])
+            ->withAvg([
+                'testimonials as avg_rating' => function ($q) {
+                    $q->where('is_active', true);
+                }
+            ], 'rating')
+            ->where('is_active', true)
+            ->where('is_featured', true)
+            ->latest()
+            ->get();
         return view('frontend.pages.home', compact(
             'banners',
             'beritas',
             'gallerie',
-            'employee',
             'monthVisitors',
             'totalVisitors',
             'todayVisitors',
             'yearVisitors',
             'testimonials',
             'partners',
+            'packages'
         ));
     }
 }

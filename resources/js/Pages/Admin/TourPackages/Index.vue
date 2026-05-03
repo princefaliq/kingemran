@@ -163,14 +163,14 @@ const confirmDelete = (id, title) => {
                                     <!-- PRICE -->
                                     <td class="align-middle">
                                         <div class="fw-bold">
-                                            Rp {{ Number(item.price).toLocaleString() }}
+                                            {{ item.currency }} {{ Number(item.price).toLocaleString() }}
                                         </div>
 
                                         <div
                                             v-if="item.price_discount"
                                             class="text-muted text-decoration-line-through small"
                                         >
-                                            Rp {{ Number(item.price_discount).toLocaleString() }}
+                                            {{ item.currency }} {{ Number(item.price_discount).toLocaleString() }}
                                         </div>
                                     </td>
 

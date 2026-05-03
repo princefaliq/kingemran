@@ -3,6 +3,7 @@
 @section('content')
     @include('frontend.sections.home.banner')
     @include('frontend.sections.home.about')
+    @include('frontend.sections.home.package_tour')
    {{-- @include('frontend.sections.home.fasilitas')
 
     @include('frontend.sections.home.layanan')

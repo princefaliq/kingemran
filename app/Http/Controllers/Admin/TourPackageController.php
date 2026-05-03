@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\TourPackage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -44,6 +45,7 @@ class TourPackageController extends Controller
                 'duration_type' => $item->duration_type,
                 'price' => $item->price,
                 'price_discount' => $item->price_discount,
+                'currency' => $item->currency,
                 'location' => $item->location,
                 'is_featured' => $item->is_featured,
                 'is_active' => $item->is_active,
@@ -79,9 +81,6 @@ class TourPackageController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
         DB::transaction(function () use ($request) {
             // ✅ VALIDASI
             $validated = $request->validate([
@@ -93,7 +92,7 @@ class TourPackageController extends Controller
 
                 'price' => 'required|numeric|min:0',
                 'price_discount' => 'nullable|numeric|min:0',
-
+                'currency' => 'required|in:IDR,USD,SAR',
                 'location' => 'nullable|string|max:255',
                 'departure_city' => 'nullable|string|max:255',
 
@@ -109,13 +108,23 @@ class TourPackageController extends Controller
 
                 'is_featured' => 'boolean',
                 'is_active' => 'boolean',
+
+                // 🔥 TAMBAHKAN INI
+                'items' => 'nullable|array',
+                'items.*.type' => 'nullable|string',
+                'items.*.name' => 'nullable|string',
+
+                'itineraries' => 'nullable|array',
+                'itineraries.*.day' => 'nullable|integer|min:1',
+                'itineraries.*.title' => 'nullable|string',
+                'itineraries.*.description' => 'nullable|string',
             ]);
             // ✅ SLUG AUTO (UNIQUE)
             $slug = Str::slug($validated['title']);
             $originalSlug = $slug;
             $count = 1;
 
-            while (\App\Models\TourPackage::where('slug', $slug)->exists()) {
+            while (TourPackage::where('slug', $slug)->exists()) {
                 $slug = $originalSlug . '-' . $count++;
             }
 
@@ -134,22 +143,28 @@ class TourPackageController extends Controller
             // ✅ SIMPAN
             $package =TourPackage::create($validated);
 
-            // 🔥 ITEMS
-            foreach ($request->items as $item) {
-                $package->items()->create([
-                    'type' => $item['type'],
-                    'name' => $item['name'],
-                ]);
-            }
+            // 🔥 ITEMS (FILTER)
+            collect($validated['items'] ?? [])
+                ->filter(fn ($item) => !empty($item['name']))
+                ->each(function ($item) use ($package) {
+                    $package->items()->create([
+                        'type' => $item['type'] ?? 'include',
+                        'name' => $item['name'],
+                    ]);
+                });
 
-            // 🔥 ITINERARIES
-            foreach ($request->itineraries as $itinerary) {
-                $package->itineraries()->create([
-                    'day' => $itinerary['day'],
-                    'title' => $itinerary['title'],
-                    'description' => $itinerary['description'] ?? null,
-                ]);
-            }
+
+            /// 🔥 ITINERARIES (FILTER + AUTO DAY)
+            collect($validated['itineraries'] ?? [])
+                ->filter(fn ($i) => !empty($i['title']))
+                ->values()
+                ->each(function ($itinerary, $index) use ($package) {
+                    $package->itineraries()->create([
+                        'day' => $itinerary['day'] ?? ($index + 1),
+                        'title' => $itinerary['title'],
+                        'description' => $itinerary['description'] ?? null,
+                    ]);
+                });
         });
         return redirect()
             ->route('admin.tour-packages.index')
@@ -169,6 +184,8 @@ class TourPackageController extends Controller
      */
     public function edit(TourPackage $tourPackage)
     {
+        $tourPackage->load(['items', 'itineraries']);
+
         return Inertia::render('Admin/TourPackages/Edit', [
             'package' => [
                 'id' => $tourPackage->id,
@@ -177,6 +194,7 @@ class TourPackageController extends Controller
                 'duration_type' => $tourPackage->duration_type,
                 'price' => $tourPackage->price,
                 'price_discount' => $tourPackage->price_discount,
+                'currency' => $tourPackage->currency,
                 'location' => $tourPackage->location,
                 'departure_city' => $tourPackage->departure_city,
                 'departure_date' => $tourPackage->departure_date,
@@ -190,6 +208,24 @@ class TourPackageController extends Controller
                 'thumbnail_url' => $tourPackage->thumbnail
                     ? asset('storage/' . $tourPackage->thumbnail)
                     : null,
+
+                // 🔥 WAJIB TAMBAHKAN INI
+                'items' => $tourPackage->items->map(function ($item) {
+                    return [
+                        'id' => $item->id,
+                        'type' => $item->type,
+                        'name' => $item->name,
+                    ];
+                }),
+
+                'itineraries' => $tourPackage->itineraries->map(function ($itinerary) {
+                    return [
+                        'id' => $itinerary->id,
+                        'day' => $itinerary->day,
+                        'title' => $itinerary->title,
+                        'description' => $itinerary->description,
+                    ];
+                }),
             ]
         ]);
     }
@@ -202,6 +238,7 @@ class TourPackageController extends Controller
             'duration_type' => 'required|string',
             'price' => 'required|numeric',
             'price_discount' => 'nullable|numeric',
+            'currency' => 'required|in:IDR,USD,SAR',
             'location' => 'nullable|string',
             'departure_city' => 'nullable|string',
             'departure_date' => 'nullable|date',
@@ -212,18 +249,68 @@ class TourPackageController extends Controller
             'description' => 'nullable|string',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
-            'thumbnail' => 'nullable|image|max:2048'
+            'thumbnail' => 'nullable|image|max:2048',
+
+            // 🔥 RELASI
+            'items' => 'nullable|array',
+            'items.*.type' => 'nullable|string',
+            'items.*.name' => 'nullable|string',
+
+            'itineraries' => 'nullable|array',
+            'itineraries.*.day' => 'nullable|integer|min:1',
+            'itineraries.*.title' => 'nullable|string',
+            'itineraries.*.description' => 'nullable|string',
         ]);
 
-        // 🔥 HAPUS thumbnail dari data dulu
+        /* =========================
+           THUMBNAIL
+        ========================= */
         unset($data['thumbnail']);
 
-        // 🔥 kalau ada file baru → replace
         if ($request->hasFile('thumbnail')) {
+
+            if ($tourPackage->thumbnail && Storage::disk('public')->exists($tourPackage->thumbnail)) {
+                Storage::disk('public')->delete($tourPackage->thumbnail);
+            }
+
             $data['thumbnail'] = $request->file('thumbnail')->store('packages', 'public');
         }
 
+        /* =========================
+       UPDATE PACKAGE
+    ========================= */
         $tourPackage->update($data);
+
+        /* =========================
+           RESET ITEMS
+        ========================= */
+        $tourPackage->items()->delete();
+
+        collect($data['items'] ?? [])
+            ->filter(fn ($item) => !empty($item['name']))
+            ->each(function ($item) use ($tourPackage) {
+                $tourPackage->items()->create([
+                    'type' => $item['type'] ?? 'include',
+                    'name' => $item['name'],
+                ]);
+            });
+
+        /* =========================
+      RESET ITINERARIES
+   ========================= */
+        $tourPackage->itineraries()->delete();
+
+        collect($data['itineraries'] ?? [])
+            ->filter(fn ($i) => !empty($i['title']))
+            ->values()
+            ->each(function ($itinerary, $index) use ($tourPackage) {
+                $tourPackage->itineraries()->create([
+                    // 🔥 auto rapikan day
+                    'day' => $itinerary['day'] ?? ($index + 1),
+                    'title' => $itinerary['title'],
+                    'description' => $itinerary['description'] ?? null,
+                ]);
+            });
 
         return redirect()->route('admin.tour-packages.index')
             ->with('success', 'Package berhasil diupdate');

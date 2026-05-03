@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontEnd\HomeController;
 use App\Http\Controllers\FrontEnd\PagesController;
 use App\Http\Controllers\FrontEnd\PaketController;
 use App\Http\Controllers\FrontEnd\TestimonialController;
+use App\Http\Controllers\FrontEnd\TourPackageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,12 +22,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class,'index'])->name('beranda');
 Route::get('/tentang-kami', [AboutController::class, 'index']);
-Route::get('/paket', [PaketController::class, 'index'])->name('layanan.index');
+
 Route::get('/testimoni', [TestimonialController::class, 'create'])->name('testimonials.create');
 Route::post('/testimoni', [TestimonialController::class, 'store'])->name('testimonials.store');
 // filter dulu (lebih spesifik)
 Route::get('/berita/kategori/{slug}', [BeritaController::class, 'category'])->name('news.category');
 Route::get('/berita/tag/{slug}', [BeritaController::class, 'tag'])->name('news.tag');
+
+//tour
+Route::get('/package/{slug}',[TourPackageController::class,'packageDetail'])->name('tour.show');
 
 // list semua berita
 Route::get('/berita', [BeritaController::class, 'index'])->name('news.index');

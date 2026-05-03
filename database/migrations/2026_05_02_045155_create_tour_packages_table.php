@@ -22,6 +22,7 @@ return new class extends Migration
 
             $table->decimal('price', 12, 2); // harga sekarang
             $table->decimal('price_discount', 12, 2)->nullable(); // harga coret
+            $table->string('currency', 10)->default('IDR')->after('price_discount');
 
             $table->string('location')->nullable(); // Mekkah, Madinah
             $table->string('departure_city')->nullable(); // Surabaya, Jakarta

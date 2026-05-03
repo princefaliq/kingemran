@@ -14,6 +14,7 @@ const form = useForm({
     duration_type: 'days',
     price: '',
     price_discount: '',
+    currency: 'IDR',
     location: '',
     departure_city: '',
     departure_date: '',
@@ -161,7 +162,14 @@ onBeforeUnmount(() => {
 
         <div class="card">
             <div class="card-body">
-
+                <div v-if="Object.keys(form.errors).length" class="alert alert-danger mb-5">
+                    <div class="fw-bold mb-2">Gagal menyimpan data:</div>
+                    <ul class="mb-0 ps-5">
+                        <li v-for="(error, key) in form.errors" :key="key">
+                            {{ error }}
+                        </li>
+                    </ul>
+                </div>
                 <form @submit.prevent="save">
                     <!-- TITLE -->
                     <!-- TITLE -->
@@ -265,14 +273,22 @@ onBeforeUnmount(() => {
 
                     <!-- ROW 2 -->
                     <div class="row mb-5">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="form-label">Price</label>
                             <input type="number" class="form-control" v-model="form.price" />
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="form-label">Discount Price</label>
                             <input type="number" class="form-control" v-model="form.price_discount" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Currency</label>
+                            <select class="form-select" v-model="form.currency">
+                                <option value="IDR">IDR</option>
+                                <option value="USD">USD</option>
+                                <option value="SAR">SAR</option>
+                            </select>
                         </div>
                     </div>
 
