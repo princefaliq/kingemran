@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row align-items-center justify-content-center extra-small-screen">
                 <div class="col-lg-6 col-md-8 position-relative text-center page-title-extra-large" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                    <h2 class="text-uppercase mb-10px alt-font text-white fw-500 bg-dark-gray border-radius-4px">Amazing tour</h2>
+                    <h2 class="text-uppercase mb-10px alt-font text-white fw-500 bg-dark-gray border-radius-4px">Paket perjalanan</h2>
                     <h1 class="mb-0 text-white alt-font ls-minus-2px text-uppercase fw-600 text-shadow-double-large">{{ $package->title }}</h1>
                 </div>
             </div>
@@ -198,26 +198,26 @@
                     <div class="position-sticky top-70px">
                         <div class="bg-very-light-gray contact-form-style-03 position-relative overflow-hidden p-40px lg-p-30px mb-30px">
                             <h5 class="alt-font text-dark-gray fw-600 mb-10px text-center">Book this tour</h5>
-                            <form action="email-templates/contact-form.php" method="post">
+
                                 <div class="position-relative form-group mb-5px">
                                     <span class="form-icon"><i class="bi bi-emoji-smile icon-small"></i></span>
-                                    <input class="ps-0 border-radius-0px border-color-transparent-dark-very-light bg-transparent form-control required" name="name" type="text" placeholder="Your name*" />
+                                    <input class="ps-0 border-radius-0px border-color-transparent-dark-very-light bg-transparent form-control required" name="name" type="text" placeholder="Your name*" id="nama"/>
                                 </div>
                                 <div class="position-relative form-group mb-5px">
                                     <span class="form-icon"><i class="bi bi-envelope icon-small"></i></span>
-                                    <input class="ps-0 border-radius-0px border-color-transparent-dark-very-light bg-transparent form-control required" type="email" name="email" placeholder="Your email*" />
+                                    <input class="ps-0 border-radius-0px border-color-transparent-dark-very-light bg-transparent form-control required" type="email" name="email" placeholder="Your email*" id="email"/>
                                 </div>
                                 <div class="position-relative form-group form-textarea mb-0">
-                                    <textarea class="ps-0 border-radius-0px border-bottom border-color-transparent-dark-very-light bg-transparent form-control" name="comment" placeholder="Your message" rows="2"></textarea>
+                                    <textarea class="ps-0 border-radius-0px border-bottom border-color-transparent-dark-very-light bg-transparent form-control" name="comment" placeholder="Your message" rows="2" id="pesan"></textarea>
                                     <span class="form-icon"><i class="bi bi-chat-square-dots icon-small"></i></span>
                                     <input type="hidden" name="redirect" value="">
-                                    <button class="btn btn-medium btn-dark-gray btn-round-edge btn-box-shadow mt-25px w-100 submit" type="submit" aria-label="submit">Send message</button>
+                                    <button class="btn btn-medium btn-dark-gray btn-round-edge btn-box-shadow mt-25px w-100 submit" type="button" onclick="kirimWA()" aria-label="submit">Kirim via WhatsApp</button>
                                     <div class="form-results mt-20px d-none"></div>
                                 </div>
-                            </form>
-                            <img src="images/demo-travel-agency-tour-details-07.jpg" class="position-absolute top-0px right-0px" alt="" />
+
+                            <img src="{{ asset('/images/ornamen.png') }}" style="max-width: 66px" class="position-absolute top-0px right-0px" alt="" />
                         </div>
-                        <a href="demo-travel-agency-tours.html"><img class="w-100" src="images/demo-travel-agency-tour-details-page-02.jpg" alt="" /></a>
+                        <a href="/"><img class="w-100" src="{{ asset('images/king_emran.png') }}" style="max-height: 363px" alt="" /></a>
                     </div>
                 </aside>
                 <!-- end sidebar -->
@@ -227,12 +227,12 @@
     <!-- end section -->
     <!-- start section -->
     <!-- start section -->
-    <section id="reviews" class="position-relative bg-very-light-gray overlap-height cover-background" style="background-image: url('web/images/demo-travel-agency-home-bg-03.jpg');">
+    <section id="reviews" class="position-relative bg-very-light-gray overlap-height cover-background" style="background-image: url({{ asset('images/demo-travel-agency-home-bg-03.jpg') }});">
         <div class="container">
             <div class="row align-items-center justify-content-center mb-4" data-anime='{ "translateY": [0, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
                 <div class="col-lg-3 md-mb-20px text-center text-lg-start">
-                    <span class="fw-500 text-base-color text-uppercase">Testimonials</span>
-                    <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Our happy traveller.</h2>
+                    <span class="fw-500 text-base-color text-uppercase">Pengalaman</span>
+                    <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Jamaah kami.</h2>
                     <div class="d-flex justify-content-center justify-content-lg-start">
                         <!-- start slider navigation -->
                         <div class="slider-one-slide-prev-1 bg-white box-shadow-double-large swiper-button-prev slider-navigation-style-04"><i class="bi bi-arrow-left-short icon-very-medium"></i></div>
@@ -279,3 +279,21 @@
         </div>
     </section>
 @endsection
+@push('js')
+    <script>
+        function kirimWA() {
+            let nama = document.getElementById('nama').value;
+            let email = document.getElementById('email').value;
+            let pesan = document.getElementById('pesan').value;
+
+            let text = `Assalamu'alaikum, saya ingin bertanya:\n\n`
+                + `Nama: ${nama}\n`
+                + `Email: ${email}\n`
+                + `${pesan}`;
+
+            let url = "https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['kontak_telepon'] ?? '') }}?text=" + encodeURIComponent(text);
+
+            window.open(url, '_blank');
+        }
+    </script>
+@endpush

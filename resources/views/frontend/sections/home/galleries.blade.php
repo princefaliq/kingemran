@@ -1,85 +1,75 @@
-
 <!-- start section -->
-<section class="big-section bg-solitude-blue overflow-hidden">
+<section class="pt-0">
     <div class="container">
-        <div class="row align-items-center justify-content-center mb-5 sm-mb-30px text-center text-lg-start">
-            <div class="col-xl-5 col-lg-5 md-mb-20px" data-anime='{ "translateX": [50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
-                <h4 class="text-dark-gray fw-700 mb-0 ls-minus-1px">Galeri Video & Foto</h4>
-            </div>
-            <div class="col-xl-5 col-lg-5 last-paragraph-no-margin md-mb-30px" data-anime='{ "translateX": [-50, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
-                <p class="w-90 xl-w-100 md-w-80 sm-w-100 md-mx-auto">Dokumentasi foto dan video kegiatan yang menampilkan berbagai aktivitas sebagai bentuk informasi kepada publik luas</p>
-            </div>
-            <div class="col-xl-2 col-lg-2 d-flex justify-content-center justify-content-lg-end" data-anime='{ "el": "childs", "translateX": [30, 0], "opacity": [0,1], "duration": 800, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
-                <!-- start slider navigation -->
-                <div class="slider-one-slide-prev-02 icon-small text-dark-gray swiper-button-prev slider-navigation-style-04 bg-white text-dark-gray box-shadow-large"><i class="fa-solid fa-arrow-left"></i></div>
-                <div class="slider-one-slide-next-02 icon-small text-dark-gray swiper-button-next slider-navigation-style-04 bg-white text-dark-gray box-shadow-large"><i class="fa-solid fa-arrow-right"></i></div>
-                <!-- end slider navigation -->
+        <div class="row justify-content-center mb-3">
+            <div class="col-lg-6 text-center" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                <span class="fw-500 text-base-color text-uppercase d-inline-block">Foto dan Video</span>
+                <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Momen Perjalanan Ibadah</h2>
             </div>
         </div>
-        <div class="row align-items-center">
-            <div class="col-12 position-relative">
-                <div class="outside-box-right-40 xs-outside-box-right-0" data-anime='{ "translateX": [100, 0], "opacity": [0,1], "duration": 1200, "delay": 0, "staggervalue": 150, "easing": "easeOutQuad" }'>
-                    <div class="swiper magic-cursor" data-slider-options='{ "slidesPerView": 1, "spaceBetween": 28, "loop": true, "autoplay": { "delay": 2000, "disableOnInteraction": false }, "pagination": { "el": ".slider-four-slide-pagination-1", "clickable": true }, "navigation": { "nextEl": ".slider-one-slide-next-02", "prevEl": ".slider-one-slide-prev-02" }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1200": { "slidesPerView": 5 }, "992": { "slidesPerView": 4 }, "768": { "slidesPerView": 3 }, "576": { "slidesPerView": 2 } }, "effect": "slide" }'>
-                        <div class="swiper-wrapper">
-                            @foreach($gallerie as $item)
-                            <!-- start content carousal item -->
-                            <div class="swiper-slide">
-                                <div class="interactive-banner-style-08">
-                                    <div class="gallery-box">
+        <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-sm-2 justify-content-center mb-5 md-mb-3 xs-mb-40px" data-anime='{ "el": "childs", "scale":[0.9,1], "opacity": [0,1], "duration": 500, "delay": 0, "staggervalue": 200, "easing": "easeOutQuad" }'>
+            @forelse($gallerie as $item)
+                @if($item->type == 'image')
+                    <div class="gallery-box">
+                        <!-- start interactive banners item -->
+                        <div class="col text-center interactive-banner-style-01 last-paragraph-no-margin mb-30px">
+                            <figure class="m-0 position-relative hover-box border-radius-6px overflow-hidden">
+                                <a href="{{ asset($item->image_url) }}" data-group="lightbox-gallery">
+                                    <div class="feature-box-icon position-relative">
+                                        <img class="custom-image-icon mt-30px mb-20px" style="aspect-ratio: 16/9;"
+                                             src="{{ asset($item->image_url) }}"
+                                             alt="{{ $item->title }}" />
 
-                                        @if($item->type == 'image')
-                                            {{-- jika upload gambar --}}
-                                            <a href="{{ asset('storage/'.$item->image) }}" data-group="lightbox-gallery">
-                                                <div class="feature-box-icon position-relative">
-                                                    <img class="custom-image-icon mt-30px mb-20px" style="aspect-ratio: 16/9;"
-                                                         src="{{ asset('storage/'.$item->image) }}"
-                                                         alt="{{ $item->title }}" />
-
-                                                    <div class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100 gallery-hover move-bottom-top">
-                                                        <i class="feather icon-feather-search icon-very-medium text-white"></i>
-                                                    </div>
-                                                </div>
-                                            </a>
-
-                                        @elseif($item->type == 'youtube')
-                                            {{-- jika youtube --}}
-                                            @php
-                                                preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^?&]+)/', $item->youtube_url, $match);
-                                                $youtubeId = $match[1] ?? null;
-                                            @endphp
-
-                                            <a href="https://www.youtube.com/watch?v={{ $youtubeId }}" class="popup-youtube">
-                                                <div class="feature-box-icon position-relative">
-                                                    <img class="custom-image-icon mt-30px mb-20px " style="aspect-ratio: 16/9;"
-                                                         src="https://img.youtube.com/vi/{{ $youtubeId }}/hqdefault.jpg"
-                                                         alt="{{ $item->title }}" />
-
-                                                    <div class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100 gallery-hover move-bottom-top">
-                                                        <i class="feather icon-feather-play icon-very-medium text-white"></i>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        @endif
-
-                                        <div class="feature-box-content last-paragraph-no-margin">
-                                <span class="d-block fs-19 fw-500 mb-5px text-dark-gray">
-                                    {{ $item->title }}
-                                </span>
+                                        <div class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100 gallery-hover move-bottom-top">
+                                            <i class="feather icon-feather-search icon-very-medium text-white"></i>
                                         </div>
-
                                     </div>
-                                </div>
-                            </div>
-                            <!-- end content carousal item -->
-                            @endforeach
+                                </a>
+                            </figure>
                         </div>
                     </div>
+                @elseif($item->type == 'youtube')
+                    {{-- jika youtube --}}
+                    @php
+                        preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^?&]+)/', $item->youtube_url, $match);
+                        $youtubeId = $match[1] ?? null;
+                    @endphp
+                    <!-- start interactive banners item -->
+                    <div class="col text-center interactive-banner-style-01 last-paragraph-no-margin mb-30px">
+                        <figure class="m-0 position-relative hover-box border-radius-6px overflow-hidden">
+                            <a href="https://www.youtube.com/watch?v={{ $youtubeId }}" class="popup-youtube">
+                                <div class="feature-box-icon position-relative">
+                                    <img class="custom-image-icon mt-30px mb-20px" style="aspect-ratio: 16/9;"
+                                         src="https://img.youtube.com/vi/{{ $youtubeId }}/hqdefault.jpg"
+                                         alt="{{ $item->title }}" />
+
+                                    <div class="d-flex align-items-center justify-content-center position-absolute top-0 w-100 h-100 gallery-hover move-bottom-top">
+                                        <i class="feather icon-feather-play-circle icon-very-medium text-white"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </figure>
+                    </div>
+                @endif
+            <!-- end interactive banners item -->
+            @empty
+                <div class="col-12 text-center text-muted">
+                    Belum ada Galeri yang ditampilkan.
                 </div>
-                <!-- start slider pagination -->
-                <!--<div class="swiper-pagination slider-four-slide-pagination-1 swiper-pagination-style-2 swiper-pagination-clickable swiper-pagination-bullets"></div>-->
-                <!-- end slider pagination -->
-            </div>
+            @endforelse
+        </div>
+        <div class="row text-center" data-anime='{ "translateY": [0, 0], "opacity": [0,1], "duration": 1200, "delay": 100, "staggervalue": 150, "easing": "easeOutQuad" }'>
+            <h4 class="alt-font text-dark-gray mb-0 ls-minus-1px fancy-text-style-4">
+                Perjalanan terbaik menuju <span class="fw-600" data-fancy-text='{
+        "effect": "wave",
+        "direction": "up",
+        "speed": 10,
+        "string": ["Tanah Suci.", "Baitullah.", "ibadah yang khusyuk."],
+        "duration": 2500
+    }'></span>
+            </h4>
         </div>
     </div>
 </section>
 <!-- end section -->
+

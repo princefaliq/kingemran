@@ -1,36 +1,66 @@
 
-<!-- start section -->
-<section class="position-relative overflow-hidden sm-pb-20px">
-    <div class="separator-line-9px bg-base-color position-absolute top-0px right-0px" data-bottom-top="width: 15%" data-center-top="width: 50%;"></div>
-    <div class="container">
+<!-- end section -->
+<!-- end section -->
+<section class="bg-very-light-gray background-position-center-top background-no-repeat overlap-height" style="background-image:url('web/images/demo-travel-agency-home-bg-04.png');">
+    <div class="container overlap-gap-section">
         <div class="row justify-content-center mb-2">
-            <div class="col-xl-7 col-lg-9 col-md-10 text-center">
-                <span class="bg-solitude-blue text-uppercase fs-13 ps-25px pe-25px alt-font fw-600 text-base-color lh-40 sm-lh-55 border-radius-100px d-inline-block mb-25px" data-anime='{ "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>Berita Terbaru</span>
-                <h3 class="alt-font text-dark-gray fw-600 ls-minus-1px" data-anime='{ "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>Tetap terinformasi dengan berita terbaru</h3>
+            <div class="col-lg-7 text-center" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                <span class="fw-500 text-base-color text-uppercase d-inline-block">Kisah Inspiratif</span>
+                <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Perjalanan Jamaah</h2>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-12 px-md-0">
-                <ul class="blog-classic blog-wrapper grid-loading grid grid-4col xl-grid-4col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large" data-anime='{ "el": "childs", "translateY": [50, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+            <div class="col-12">
+                <ul class="blog-modern blog-wrapper grid-loading grid grid-3col xl-grid-3col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+
                     <li class="grid-sizer"></li>
+
                     @foreach($beritas as $berita)
-                        <!-- start blog item -->
-                        <li class="grid-item">
-                            <div class="card bg-transparent border-0 h-100">
-                                <div class="blog-image position-relative overflow-hidden border-radius-6px">
-                                    <a href="{{ url('berita/'.$berita->slug) }}"><img src="{{ url($berita->image_url) }}" alt="" /></a>
-                                </div>
-                                <div class="card-body px-0 pb-30px pt-30px xs-pb-15px">
-                                    <span class="fs-14 text-uppercase mb-5px d-block"><a href="{{ url('berita/kategori/'.optional($berita->category)->slug) }}" class="text-dark-gray fw-600 categories-text">{{ optional($berita->category)->name ?? 'Tanpa Kategori' }}</a><a href="#" class="blog-date">{{ \Carbon\Carbon::parse($berita->published_at)->format('d F Y') }}</a></span>
-                                    <a href="{{ url('berita/'.$berita->slug) }}" class="card-title mb-0 fw-500 fs-18 lh-30 text-dark-gray d-inline-block">{{ $berita->title }}</a>
-                                </div>
+                        <li class="grid-item md-mb-20px">
+                            <div class="box-hover text-center">
+                                <figure class="mb-0 position-relative">
+
+                                    <!-- IMAGE -->
+                                    <div class="blog-image position-relative overflow-hidden border-radius-6px">
+                                        <a href="{{ url('berita/'.$berita->slug) }}">
+                                            <img src="{{ url($berita->image_url) }}" alt="{{ $berita->title }}" />
+                                        </a>
+                                    </div>
+
+                                    <figcaption class="post-content-wrapper overflow-hidden border-radius-6px">
+
+                                        <!-- TITLE -->
+                                        <div class="position-relative bg-dark-gray post-content p-30px z-index-2 lh-initial">
+                                            <a href="{{ url('berita/'.$berita->slug) }}" class="card-title mb-0 fs-20 lh-28 text-white d-inline-block">
+                                                {{ $berita->title }}
+                                            </a>
+                                            <div class="box-overlay bg-dark-gray z-index-minus-1"></div>
+                                        </div>
+
+                                        <!-- META -->
+                                        <div class="fs-15 bg-white p-15px lg-ps-10px lg-pe-10px lh-initial">
+                                        <span class="d-inline-block">
+                                            By
+                                            <a href="{{ url('berita/kategori/'.optional($berita->category)->slug) }}">
+                                                {{ optional($berita->category)->name ?? 'Tanpa Kategori' }}
+                                            </a>
+                                        </span>
+                                            <span class="separator d-inline-block">|</span>
+                                            <a href="#">
+                                                {{ \Carbon\Carbon::parse($berita->published_at)->format('d M Y') }}
+                                            </a>
+                                        </div>
+
+                                    </figcaption>
+                                </figure>
                             </div>
                         </li>
-                        <!-- end blog item -->
                     @endforeach
+
                 </ul>
             </div>
         </div>
     </div>
 </section>
-<!-- end section -->
+<!-- start section -->

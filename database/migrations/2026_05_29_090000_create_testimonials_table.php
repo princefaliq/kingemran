@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // nama pemberi review
+            $table->string('image')->nullable();
             $table->foreignId('tour_package_id')
                 ->nullable()
                 ->constrained()
