@@ -43,19 +43,18 @@
 @endpush
 
 @section('content')
-     <!-- start page title -->
-    <section class="bg-extra-medium-slate-blue pb-0 ipad-top-space-margin md-pt-0">
+    <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url({{ asset('images/kakbah.png') }})">
+        <div class="opacity-light bg-bay-of-many-blue"></div>
         <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-12 col-xl-6 col-lg-8 text-center position-relative page-title-double-large">
-                    <div class="d-flex flex-column justify-content-center extra-very-small-screen">
-                        <h1 class="text-light alt-font ls-minus-1px fw-700">{{ $title }}</h1>
-                        <h2 class="text-light d-inline-block fw-400 ls-0px w-80 xs-w-100 mx-auto">{{$subtitle}}</h2>
-                    </div>
+            <div class="row align-items-center justify-content-center extra-small-screen">
+                <div class="col-lg-12 col-md-8 position-relative text-center page-title-extra-large" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                    <h2 class="text-uppercase mb-10px alt-font text-white fw-500 bg-dark-gray border-radius-4px">{{ $title }}</h2>
+                    <h1 class="mb-0 text-white alt-font ls-minus-2px text-uppercase fw-600 text-shadow-double-large">{{$subtitle}}</h1>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- end page title -->
     <!-- start section -->
     <section class="mt-2 ps-11 pe-11 xl-ps-2 xl-pe-2">

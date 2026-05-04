@@ -30,6 +30,8 @@ class BeritaController extends Controller
         // berita terkait (opsional)
         $related = Article::where('category_id', $berita->category_id)
             ->where('id', '!=', $berita->id)
+            ->where('status', 'published')
+            ->where('is_featured', true)
             ->latest()
             ->take(4)
             ->get();

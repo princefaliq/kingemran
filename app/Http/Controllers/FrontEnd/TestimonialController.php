@@ -5,37 +5,66 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use App\Models\SpaProgram;
 use App\Models\Testimonial;
+use App\Models\TourPackage;
 use Illuminate\Http\Request;
+use Storage;
 
 class TestimonialController extends Controller
 {
     public function create()
     {
-        $programs = SpaProgram::where('is_active', true)
-            ->orderBy('nama_paket')
+        $packages = TourPackage::where('is_active', true)
+            ->orderBy('title')
             ->get();
 
-        return view('frontend.pages.testimoni.create', compact('programs'));
+        return view('frontend.pages.testimoni.create', compact('packages'));
     }
 
 
     public function store(Request $request)
     {
+        // ✅ Validasi
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'spa_program_id' => 'nullable|exists:spa_programs,id',
+            'tour_package_id' => 'nullable|exists:tour_packages,id',
             'content' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+            'image' => 'nullable|string', // base64
         ]);
 
-        Testimonial::create([
+        // ✅ Default data
+        $data = [
             'name' => $validated['name'],
-            'spa_program_id' => $validated['spa_program_id'] ?? null,
+            'tour_package_id' => $validated['tour_package_id'] ?? null,
             'content' => $validated['content'],
-            'is_active' => false,
-        ]);
+            'rating' => $validated['rating'],
+            'is_active' => false, // wajib review admin dulu
+        ];
 
+        // ✅ Handle image base64 dari cropper
+        if (!empty($validated['image'])) {
+            $image = $validated['image'];
+
+            // Bersihkan prefix base64
+            if (str_contains($image, 'base64,')) {
+                $image = explode('base64,', $image)[1];
+            }
+
+            $image = str_replace(' ', '+', $image);
+
+            $imageName = 'testimonials/' . uniqid() . '.jpg';
+
+            Storage::disk('public')->put($imageName, base64_decode($image));
+
+            $data['image'] = $imageName;
+        }
+
+        // ✅ Simpan ke database
+        Testimonial::create($data);
+
+        // ✅ Redirect
         return redirect()
-            ->back()
-            ->with('success', 'Testimoni berhasil dikirim dan akan ditinjau terlebih dahulu.');
+            ->route('testimonials.create')
+            ->with('success', 'Testimoni berhasil dikirim dan sedang menunggu persetujuan.');
     }
 }

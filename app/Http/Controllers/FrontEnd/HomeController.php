@@ -65,7 +65,7 @@ class HomeController extends Controller
             ->get();
 
 
-        $testimonials = Testimonial::with('spaProgram')
+        $testimonials = Testimonial::with('tourPackage')
             ->where('is_active', true)
             ->latest()
             ->get();
