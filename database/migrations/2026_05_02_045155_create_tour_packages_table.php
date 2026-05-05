@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title'); // nama paket (Umroh Ramadhan, dll)
             $table->string('slug')->unique();
+            $table->enum('category', ['haji', 'umroh']);
 
             $table->string('thumbnail')->nullable(); // gambar utama (800x655)
             $table->integer('duration'); // contoh: 10 (hari)

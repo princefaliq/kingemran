@@ -23,7 +23,7 @@ class ArticleStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => ['nullable', 'exists:categories,id'],
+            'category_id' => ['required', 'exists:categories,id'],
 
             'title' => ['required', 'string', 'max:255'],
 
@@ -31,7 +31,7 @@ class ArticleStoreRequest extends FormRequest
 
             'content' => ['required', 'string'],
 
-            'thumbnail' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'thumbnail' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
 
             'status' => ['required', Rule::in(['draft', 'published'])],
 
@@ -47,6 +47,8 @@ class ArticleStoreRequest extends FormRequest
             'content.required' => 'Konten wajib diisi.',
             'thumbnail.image' => 'Thumbnail harus berupa gambar.',
             'thumbnail.max' => 'Ukuran thumbnail maksimal 2MB.',
+            'thumbnail.required' => 'Thumbnail Wajib diisi.',
+            'category_id.required' => 'Kategori wajib diisi.',
         ];
     }
 }

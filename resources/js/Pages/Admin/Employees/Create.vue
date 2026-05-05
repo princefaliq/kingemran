@@ -55,7 +55,7 @@ const openCropper = (e) => {
             cropper?.destroy()
 
             cropper = new Cropper(cropperImage.value, {
-                aspectRatio: 75 / 92, // ✅ square untuk foto pegawai
+                aspectRatio: 3 / 4, // ✅ square untuk foto pegawai
                 viewMode: 1,
                 autoCropArea: 1,
                 responsive: true,

@@ -1,10 +1,11 @@
 @extends('frontend.layouts.app')
-@section('title','Home')
+@section('title', $title)
 @push('css')
     <style>
         .card-title {
-            min-height: 52px; /* kira2 2 baris */
+            min-height: 52px; !important;/* kira2 2 baris */
             line-height: 26px;
+            display: -webkit-box !important;
         }
         .card-body p {
             min-height: 72px; /* kira2 3 baris */
@@ -43,10 +44,10 @@
 @endpush
 
 @section('content')
-    <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding md-pt-20px" style="background-image: url({{ asset('images/kakbah.png') }})">
+    <section class="page-title-button-style cover-background position-relative ipad-top-space-margin top-space-padding" style="background-image: url({{ asset('images/kakbah_bg.png') }})">
         <div class="opacity-light bg-bay-of-many-blue"></div>
         <div class="container">
-            <div class="row align-items-center justify-content-center extra-small-screen">
+            <div class="row align-items-center justify-content-center extra-small-screen mt-4">
                 <div class="col-lg-12 col-md-8 position-relative text-center page-title-extra-large" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                     <h2 class="text-uppercase mb-10px alt-font text-white fw-500 bg-dark-gray border-radius-4px">{{ $title }}</h2>
                     <h1 class="mb-0 text-white alt-font ls-minus-2px text-uppercase fw-600 text-shadow-double-large">{{$subtitle}}</h1>
@@ -57,8 +58,9 @@
 
     <!-- end page title -->
     <!-- start section -->
-    <section class="mt-2 ps-11 pe-11 xl-ps-2 xl-pe-2">
-        <div class="container-fluid">
+    <section class="ps-11 pe-11 xl-ps-2 xl-pe-2 position-relative">
+        <div class="h-110px position-absolute w-100 h-100 left-0px right-0px top-minus-70px" style="background-image:url({{ asset( 'web/images/demo-travel-agency-about-bg-02.png' ) }})"></div>
+        <div class="container-fluid position-relative">
             <div class="row">
                 <div class="col-12">
                     <ul class="blog-grid blog-wrapper grid-loading grid grid-4col xl-grid-4col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large">
@@ -89,7 +91,7 @@
 
                                     {{-- TITLE --}}
                                     <a href="{{ route('news.show', $berita->slug) }}"
-                                       class="card-title mb-15px fw-600 fs-17 lh-26 text-dark-gray text-dark-gray-hover d-inline-block line-clamp-2">
+                                       class="card-title mb-15px fw-600 fs-17 lh-26 text-dark-gray text-dark-gray-hover d-inline-block line-clamp-2" title="{{ $berita->title }}">
                                         {{ $berita->title }}
                                     </a>
 

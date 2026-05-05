@@ -22,6 +22,38 @@ class TourPackageController extends Controller
             ->where('is_active', true)
             ->firstOrFail();
 
-        return view('frontend.pages.package-detail', compact('package'));
+        return view('frontend.pages.package.show', compact('package'));
+    }
+    public function index(Request $request)
+    {
+        $query = TourPackage::withCount([
+            'testimonials as reviews_count' => function ($q) {
+                $q->where('is_active', true);
+            }
+        ])
+            ->withAvg([
+                'testimonials as rating_avg' => function ($q) {
+                    $q->where('is_active', true);
+                }
+            ], 'rating')
+            ->where('is_active', true);
+
+        // CATEGORY
+        if ($request->category) {
+            $query->where('category', $request->category);
+        }
+
+        // MONTH
+        if ($request->month) {
+            $query->whereMonth('departure_date', $request->month);
+        }
+
+        // YEAR
+        if ($request->year) {
+            $query->whereYear('departure_date', $request->year);
+        }
+
+        $packages = $query->latest()->paginate(6)->withQueryString();
+        return view('frontend.pages.package.index', compact('packages'));
     }
 }

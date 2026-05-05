@@ -10,6 +10,7 @@ FORM
 
 const form = useForm({
     title: '',
+    category: '', // atau 'umroh' sebagai default
     duration: '',
     duration_type: 'days',
     price: '',
@@ -172,13 +173,24 @@ onBeforeUnmount(() => {
                 </div>
                 <form @submit.prevent="save">
                     <!-- TITLE -->
-                    <!-- TITLE -->
                     <div class="mb-5">
                         <label class="form-label">Title</label>
                         <input type="text" class="form-control" v-model="form.title" />
                     </div>
 
-                    <!-- THUMBNAIL -->
+                    <div class="mb-5">
+                        <label class="form-label">Category</label>
+
+                        <select class="form-select" v-model="form.category">
+                            <option value="" disabled>-- Select Category --</option>
+                            <option value="haji">Haji</option>
+                            <option value="umroh">Umroh</option>
+                        </select>
+
+                        <div v-if="form.errors.category" class="text-danger mt-2">
+                            {{ form.errors.category }}
+                        </div>
+                    </div>
                     <!-- THUMBNAIL -->
                     <div class="mb-7">
 

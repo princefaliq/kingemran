@@ -12,10 +12,12 @@ const props = defineProps({
 const search = ref(props.filters.search || '')
 const sort = ref(props.filters.sort || 'id')
 const direction = ref(props.filters.direction || 'desc')
+const category = ref(props.filters.category || '')
 
 const reload = () => {
     router.get(route('admin.tour-packages.index'), {
         search: search.value,
+        category: category.value, // ✅
         sort: sort.value,
         direction: direction.value
     }, {
@@ -90,6 +92,15 @@ const confirmDelete = (id, title) => {
 
                 <div class="d-flex align-items-center py-2 py-md-1">
                     <div class="me-3">
+                        <div class="me-3">
+                            <select v-model="category" @change="reload" class="form-select">
+                                <option value="">All Category</option>
+                                <option value="haji">Haji</option>
+                                <option value="umroh">Umroh</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="me-3">
                         <input
                             v-model="search"
                             @input="reload"
@@ -137,10 +148,28 @@ const confirmDelete = (id, title) => {
 
                                     <!-- THUMB -->
                                     <td class="align-middle">
-                                        <img
-                                            :src="item.thumbnail_url"
-                                            style="width:80px; height:60px; object-fit:cover; border-radius:6px;"
-                                        />
+                                        <div class="position-relative" style="width:80px; height:60px;">
+
+                                            <!-- IMAGE -->
+                                            <img
+                                                :src="item.thumbnail_url"
+                                                class="w-100 h-100"
+                                                style="object-fit:cover; border-radius:6px;"
+                                            />
+
+                                            <!-- CATEGORY BADGE -->
+                                            <span
+                                                class="badge position-absolute top-0 start-0 m-1 px-2 py-1"
+                                                :class="item.category === 'haji'
+                                                ? 'badge-success'
+                                                : 'badge-primary'"
+                                                style="font-size:10px;"
+                                            >
+                                                {{ item.category }}
+                                            </span>
+
+
+                                        </div>
                                     </td>
 
                                     <!-- TITLE -->

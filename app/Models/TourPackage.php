@@ -10,6 +10,7 @@ class TourPackage extends Model
     use HasFactory;
     protected $fillable = [
         'title',
+        'category',
         'slug',
         'thumbnail',
         'duration',

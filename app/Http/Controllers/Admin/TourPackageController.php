@@ -18,6 +18,7 @@ class TourPackageController extends Controller
     public function index(Request $request)
     {
         $search = $request->search;
+        $category = $request->category;
         $sort = $request->sort ?? 'id';
         $direction = $request->direction ?? 'desc';
 
@@ -35,12 +36,16 @@ class TourPackageController extends Controller
                         ->orWhere('departure_city', 'like', "%{$search}%");
                 });
             })
+            ->when($category, function ($query) use ($category) {
+                $query->where('category', $category); // ✅ FILTER CATEGORY
+            })
             ->orderBy($sort, $direction)
             ->paginate(10)
             ->withQueryString()
             ->through(fn ($item) => [
                 'id' => $item->id,
                 'title' => $item->title,
+                'category' => $item->category,
                 'duration' => $item->duration,
                 'duration_type' => $item->duration_type,
                 'price' => $item->price,
@@ -62,6 +67,7 @@ class TourPackageController extends Controller
             'packages' => $packages,
             'filters' => [
                 'search' => $search,
+                'category' => $category, // ✅ TAMBAHKAN
                 'sort' => $sort,
                 'direction' => $direction,
             ],
@@ -85,6 +91,7 @@ class TourPackageController extends Controller
             // ✅ VALIDASI
             $validated = $request->validate([
                 'title' => 'required|string|max:255',
+                'category' => 'required|in:haji,umroh',
                 'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
 
                 'duration' => 'required|integer|min:1',
@@ -189,6 +196,7 @@ class TourPackageController extends Controller
         return Inertia::render('Admin/TourPackages/Edit', [
             'package' => [
                 'id' => $tourPackage->id,
+                'category' => $tourPackage->category,
                 'title' => $tourPackage->title,
                 'duration' => $tourPackage->duration,
                 'duration_type' => $tourPackage->duration_type,
@@ -234,6 +242,7 @@ class TourPackageController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
+            'category' => 'required|in:haji,umroh',
             'duration' => 'required|integer',
             'duration_type' => 'required|string',
             'price' => 'required|numeric',
@@ -278,7 +287,7 @@ class TourPackageController extends Controller
 
         /* =========================
        UPDATE PACKAGE
-    ========================= */
+        ========================= */
         $tourPackage->update($data);
 
         /* =========================

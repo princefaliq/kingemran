@@ -1,3 +1,13 @@
+@push('css')
+    <style>
+        .text-title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+@endpush
 <section class="bg-very-light-gray background-position-center-bottom background-size-contain background-no-repeat pt-2 pb-6" style="background-image:url('web/images/demo-travel-agency-home-bg-05.png');">
     <div class="container">
         <div class="row justify-content-center mb-3">
@@ -13,8 +23,8 @@
                     <div class="swiper-wrapper pb-5 md-pb-6">
 
                         @foreach($packages as $item)
-                            <div class="swiper-slide">
-                                <div class="overflow-hidden border-radius-6px box-shadow-large">
+                            <div class="swiper-slide d-flex">
+                                <div class="overflow-hidden border-radius-6px box-shadow-large w-100">
                                     <div class="image">
                                         <a href="{{ route('tour.show', $item->slug) }}">
                                             <img class="w-100"
@@ -23,7 +33,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="bg-white p-35px position-relative">
+                                    <div class="bg-white p-35px position-relative d-flex flex-column flex-grow-1">
 
                                         <div class="bg-base-color ps-15px pe-15px fs-14 text-uppercase fw-500 d-inline-block text-golden-yellow position-absolute right-0px top-0px">
                                             {{ $item->duration }} {{ $item->duration_type }}
@@ -33,7 +43,7 @@
                                             <span class="text-uppercase d-block fs-14 lh-18 fw-500 text-medium-gray">Start From</span>
 
                                             {{ $item->currency }} {{ number_format($item->price_discount,0,',','.') }}
-
+                                            <br>
                                             @if($item->price)
                                                 <span class="ms-5px position-relative text-red fs-19 fw-500">
                                                     {{ $item->currency }} {{ number_format($item->price,0,',','.') }}
@@ -43,7 +53,7 @@
                                         </div>
 
                                         <a href="{{ route('tour.show', $item->slug) }}"
-                                           class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block">
+                                           class="mt-10px fs-18 text-dark-gray fw-500 lh-26 d-block flex-grow-1">
                                             {{ $item->title }}
                                         </a>
 

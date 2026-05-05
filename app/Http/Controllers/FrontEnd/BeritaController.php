@@ -18,7 +18,7 @@ class BeritaController extends Controller
             ->paginate(12);
 
         $title = 'Semua Berita';
-        $subtitle = 'Kumpulan berita terbaru, informasi terkini, dan artikel menarik yang dapat menambah wawasan Anda.';
+        $subtitle = 'Informasi perjalanan Anda.';
         return view('frontend.pages.news.index', compact('beritas', 'title','subtitle'));
     }
     public function show($slug)
@@ -55,7 +55,7 @@ class BeritaController extends Controller
             ->paginate(12);
 
         $title = 'Kategori: ' . $category->name;
-        $subtitle = 'Berita dalam kategori ' . $category->name . ' yang telah kami kurasi untuk Anda.';
+        $subtitle = 'Dalam kategori ' . $category->name ;
 
         return view('frontend.pages.news.index', compact('beritas', 'title','subtitle'));
     }
@@ -72,7 +72,7 @@ class BeritaController extends Controller
             ->paginate(12);
 
         $title = 'Tag: ' . $tag->name;
-        $subtitle = 'Kumpulan artikel dengan topik ' . $tag->name . ' yang sedang dibahas.';
+        $subtitle = 'Dengan topik ' . $tag->name;
 
         return view('frontend.pages.news.index', compact('beritas', 'title','subtitle'));
     }

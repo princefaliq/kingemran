@@ -30,7 +30,8 @@ Route::get('/berita/kategori/{slug}', [BeritaController::class, 'category'])->na
 Route::get('/berita/tag/{slug}', [BeritaController::class, 'tag'])->name('news.tag');
 
 //tour
-Route::get('/package/{slug}',[TourPackageController::class,'packageDetail'])->name('tour.show');
+Route::get('/paket', [TourPackageController::class, 'index'])->name('tour.index');
+Route::get('/paket/{slug}',[TourPackageController::class,'packageDetail'])->name('tour.show');
 
 // list semua berita
 Route::get('/berita', [BeritaController::class, 'index'])->name('news.index');

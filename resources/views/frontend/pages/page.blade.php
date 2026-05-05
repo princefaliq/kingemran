@@ -63,38 +63,25 @@
 @endpush
 
 @section('content')
-    <section class="page-title-parallax-background bg-dark-gray ipad-top-space-margin"
-             style="background-image: url('{{ asset('web/images/demo-spa-salon-contact-title-bg.jpg') }}')">
-        <div class="opacity-very-light bg-gradient-nero-grey-brown"></div>
+
+    <section class="page-title-button-style cover-background position-relative ipad-top-space-margin md-pt-20px" style="background-image: url({{ asset('images/kakbah_bg.png') }})">
+        <div class="opacity-light bg-bay-of-many-blue"></div>
         <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-12 text-center position-relative page-title-extra-large">
-                    <h1 class="text-white alt-font mb-0 fw-400 ls-minus-1px">{{ $page->title }}</h1>
-                    <div class="breadcrumb breadcrumb-style-01 text-white justify-content-center mt-10px">
-                        <ul>
-                            <li><a href="{{ route('beranda') }}" class="text-white">Home</a></li>
-                            <li>{{ $page->title }}</li>
-                        </ul>
-                    </div>
+            <div class="row align-items-center justify-content-center extra-small-screen mt-4">
+                <div class="col-lg-12 col-md-8 position-relative text-center page-title-extra-large" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                    <h2 class="text-uppercase mb-10px alt-font text-white fw-500 bg-dark-gray border-radius-4px">Halaman</h2>
+                    <h1 class="mb-0 text-white alt-font ls-minus-2px text-uppercase fw-600 text-shadow-double-large">{{ $page->title }}</h1>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="page-detail-section background-repeat pt-5 pb-5 md-pt-8 md-pb-8" style="background-image:url('{{ asset('images/bg.png') }}');">
+    <section class="page-detail-section pt-5 pb-5 md-pt-8 md-pb-8 position-relative" >
+        <div class="h-110px position-absolute w-100 h-100 left-0px right-0px top-minus-70px" style="background-image:url({{ asset( 'web/images/demo-travel-agency-about-bg-02.png' ) }})"></div>
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-xl-9 col-lg-10">
+                <div class="col-xl-12 col-lg-12">
                     <div class="page-detail-card bg-white border-radius-6px p-50px md-p-35px sm-p-25px">
-                        <div class="text-center mb-35px">
-                            <span class="fs-15 mb-10px text-base-color fw-500 d-block text-uppercase ls-2px">{{ $page->name }}</span>
-                            <h3 class="alt-font ls-minus-1px text-dark-gray mb-15px">{{ $page->title }}</h3>
-                            <div class="page-detail-meta fs-15">
-                                <i class="feather icon-feather-calendar text-base-color me-5px"></i>
-                                {{ $page->created_at->format('d F Y') }}
-                            </div>
-                        </div>
-
                         @if($viewType == 'editor')
                             <div class="page-detail-content">
                                 {!! $page->content !!}

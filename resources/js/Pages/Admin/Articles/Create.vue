@@ -29,7 +29,7 @@ FORM
 
 const form = useForm({
     title: '',
-    category_id: null,
+    category_id: '',
     content: '',
     tag_ids: [],
     thumbnail: null,
@@ -238,7 +238,14 @@ watch(() => form.status, (val) => {
 
         <div class="card">
             <div class="card-body">
-
+                <div v-if="Object.keys(form.errors).length" class="alert alert-danger">
+                    <strong>Terjadi kesalahan:</strong>
+                    <ul class="mb-0 mt-2">
+                        <li v-for="(error, key) in form.errors" :key="key">
+                            {{ error }}
+                        </li>
+                    </ul>
+                </div>
                 <form @submit.prevent="save">
                     <!-- TITLE -->
                     <div class="mb-5">
@@ -248,7 +255,11 @@ watch(() => form.status, (val) => {
                             type="text"
                             class="form-control"
                             v-model="form.title"
+                            :class="{ 'is-invalid': form.errors.title }"
                         />
+                        <div v-if="form.errors.title" class="invalid-feedback">
+                            {{ form.errors.title }}
+                        </div>
                     </div>
 
                     <!-- THUMBNAIL -->
@@ -267,7 +278,9 @@ watch(() => form.status, (val) => {
                         />
 
                         <!-- CARD CONTAINER -->
-                        <div class="card shadow-sm border-0">
+                        <div class="card shadow-sm border-0"
+                             :class="{ 'is-invalid': form.errors.thumbnail }"
+                        >
 
                             <div class="card-body text-center p-5">
 
@@ -275,7 +288,9 @@ watch(() => form.status, (val) => {
                                 <div
                                     v-if="!previewUrl"
                                     class="border border-2 border-dashed rounded p-10 cursor-pointer hover-opacity bg-light"
+                                    :class="{ 'is-invalid': form.errors.thumbnail }"
                                     @click="triggerFileInput"
+
                                 >
                                     <i class="ki-duotone ki-add-item fs-3x">
                                         <span class="path1"></span>
@@ -334,7 +349,7 @@ watch(() => form.status, (val) => {
 
                                 </div>
 
-                                <div v-if="form.errors.thumbnail" class="text-danger mt-3">
+                                <div v-if="form.errors.thumbnail" class="text-danger d-block mt-3">
                                     {{ form.errors.thumbnail }}
                                 </div>
 
@@ -345,12 +360,18 @@ watch(() => form.status, (val) => {
                     <!-- CATEGORY -->
                     <div class="mb-5">
                         <label class="form-label">Category</label>
-                        <select class="form-select" v-model="form.category_id">
-                            <option :value="null">-</option>
+                        <select class="form-select"
+                                v-model="form.category_id"
+                                :class="{ 'is-invalid': form.errors.category_id }"
+                        >
+                            <option disabled value="">-- Pilih Kategori --</option>
                             <option v-for="c in categories" :key="c.id" :value="c.id">
                                 {{ c.name }}
                             </option>
                         </select>
+                        <div v-if="form.errors.category_id" class="invalid-feedback">
+                            {{ form.errors.category_id }}
+                        </div>
                     </div>
 
                     <!-- TAGS -->
@@ -361,12 +382,18 @@ watch(() => form.status, (val) => {
                                 {{ tag.name }}
                             </option>
                         </select>
+                        <div v-if="form.errors.tag_ids" class="text-danger mt-2">
+                            {{ form.errors.tag_ids }}
+                        </div>
                     </div>
 
                     <!-- CONTENT -->
                     <div class="mb-5">
                         <label class="form-label">Content</label>
                         <div ref="editorRef" style="min-height:300px;"></div>
+                        <div v-if="form.errors.content" class="text-danger mt-2">
+                            {{ form.errors.content }}
+                        </div>
                     </div>
                     <div class="row mb-5">
 
@@ -388,6 +415,9 @@ watch(() => form.status, (val) => {
                                     Published
                                 </option>
                             </select>
+                            <div v-if="form.errors.status" class="invalid-feedback">
+                                {{ form.errors.status }}
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label">
@@ -398,6 +428,9 @@ watch(() => form.status, (val) => {
                                 class="form-control"
                                 v-model="form.published_at"
                             />
+                            <div v-if="form.errors.published_at" class="invalid-feedback">
+                                {{ form.errors.published_at }}
+                            </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-end">
 
@@ -412,7 +445,9 @@ watch(() => form.status, (val) => {
                                 <label class="form-check-label">
                                     Featured
                                 </label>
-
+                                <div v-if="form.errors.is_featured" class="text-danger">
+                                    {{ form.errors.is_featured }}
+                                </div>
                             </div>
 
                         </div>

@@ -1,12 +1,22 @@
-
+@push('css')
+    <style>
+        .card-title {
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+        }
+    </style>
+@endpush
 <!-- end section -->
 <!-- end section -->
 <section class="bg-very-light-gray background-position-center-top background-no-repeat overlap-height" style="background-image:url('web/images/demo-travel-agency-home-bg-04.png');">
     <div class="container overlap-gap-section">
         <div class="row justify-content-center mb-2">
             <div class="col-lg-7 text-center" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                <span class="fw-500 text-base-color text-uppercase d-inline-block">Kisah Inspiratif</span>
-                <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Perjalanan Jamaah</h2>
+                <span class="fw-500 text-base-color text-uppercase d-inline-block">Berita & Informasi</span>
+                <h2 class="alt-font fw-600 text-dark-gray ls-minus-2px">Jamaah Haji & Umroh</h2>
             </div>
         </div>
 
@@ -32,7 +42,7 @@
 
                                         <!-- TITLE -->
                                         <div class="position-relative bg-dark-gray post-content p-30px z-index-2 lh-initial">
-                                            <a href="{{ url('berita/'.$berita->slug) }}" class="card-title mb-0 fs-20 lh-28 text-white d-inline-block">
+                                            <a href="{{ url('berita/'.$berita->slug) }}" class="card-title mb-0 fs-20 lh-28 text-white d-inline-block" title="{{ $berita->title }}">
                                                 {{ $berita->title }}
                                             </a>
                                             <div class="box-overlay bg-dark-gray z-index-minus-1"></div>
@@ -41,7 +51,7 @@
                                         <!-- META -->
                                         <div class="fs-15 bg-white p-15px lg-ps-10px lg-pe-10px lh-initial">
                                         <span class="d-inline-block">
-                                            By
+                                            <i class="line-icon-Book"></i>
                                             <a href="{{ url('berita/kategori/'.optional($berita->category)->slug) }}">
                                                 {{ optional($berita->category)->name ?? 'Tanpa Kategori' }}
                                             </a>
