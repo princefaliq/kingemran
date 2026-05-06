@@ -34,19 +34,19 @@
             <div class="col-xl-6 text-center lg-mt-10px sm-mt-0 sm-mb-15px order-1 order-xl-2 order-md-3">
                 <ul class="footer-navbar">
                     <li class="nav-item"><a href="{{ url('tentang-kami') }}" class="nav-link text-light">About</a></li>
-                    <li class="nav-item"><a href="demo-travel-agency-destinations.html" class="nav-link text-light">Destinations</a></li>
-                    <li class="nav-item"><a href="demo-travel-agency-tours.html" class="nav-link text-light">Tours</a></li>
-                    <li class="nav-item"><a href="demo-travel-agency-reviews.html" class="nav-link text-light">Reviews</a></li>
-                    <li class="nav-item"><a href="{{ url('berita') }}" class="nav-link text-light">Blog</a></li>
+                    <li class="nav-item"><a href="{{ url('galeri') }}" class="nav-link text-light">Galeri</a></li>
+                    <li class="nav-item"><a href="{{ url('paket') }}" class="nav-link text-light">Tours</a></li>
+                    <li class="nav-item"><a href="{{ url('/testimoni') }}" class="nav-link text-light">Reviews</a></li>
+                    <li class="nav-item"><a href="{{ url('berita') }}" class="nav-link text-light">Berita</a></li>
                     <li class="nav-item"><a href="{{ $whatsappUrl($settings['kontak_telepon'] ?? '') }}" class="nav-link text-light">Contact</a></li>
                 </ul>
             </div>
             <div class="col-xl-3 col-sm-6 position-relative text-center text-sm-end elements-social social-text-style-08 order-2 order-xl-3 xs-mb-10px">
                 <ul class="small-icon dark">
-                    <li><a class="facebook" href="https://www.facebook.com/" target="_blank"><i class="text-light fa-brands fa-facebook-f"></i></a></li>
-                    <li><a class="dribbble" href="http://www.dribbble.com" target="_blank"><i class="text-light fa-brands fa-dribbble"></i></a></li>
-                    <li><a class="twitter" href="http://www.twitter.com" target="_blank"><i class="text-light fa-brands fa-twitter"></i></a></li>
-                    <li><a class="instagram" href="http://www.instagram.com" target="_blank"><i class="text-light fa-brands fa-instagram"></i></a></li>
+                    <li><a class="facebook" href="{{ $settings['sosmed_facebook'] }}" target="_blank"><i class="text-light fa-brands fa-facebook-f"></i></a></li>
+                    <li><a class="tiktok" href="{{ $settings['sosmed_tiktok'] }}" target="_blank"><i class="text-light fa-brands fa-tiktok"></i></a></li>
+                    <li><a class="youtube" href="{{ $settings['sosmed_youtube'] }}" target="_blank"><i class="text-light fa-brands fa-youtube"></i></a></li>
+                    <li><a class="instagram" href="{{ $settings['sosmed_instagram'] }}" target="_blank"><i class="text-light fa-brands fa-instagram"></i></a></li>
                 </ul>
             </div>
         </div>

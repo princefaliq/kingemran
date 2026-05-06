@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FrontEnd\AboutController;
 use App\Http\Controllers\FrontEnd\BeritaController;
+use App\Http\Controllers\FrontEnd\GaleriController;
 use App\Http\Controllers\FrontEnd\HomeController;
 use App\Http\Controllers\FrontEnd\PagesController;
 use App\Http\Controllers\FrontEnd\PaketController;
@@ -28,6 +29,8 @@ Route::post('/testimoni', [TestimonialController::class, 'store'])->name('testim
 // filter dulu (lebih spesifik)
 Route::get('/berita/kategori/{slug}', [BeritaController::class, 'category'])->name('news.category');
 Route::get('/berita/tag/{slug}', [BeritaController::class, 'tag'])->name('news.tag');
+
+Route::get('galeri', [GaleriController::class, 'index'])->name('gallery');
 
 //tour
 Route::get('/paket', [TourPackageController::class, 'index'])->name('tour.index');

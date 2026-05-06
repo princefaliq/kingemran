@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row h-45px align-items-center m-0">
                 <div class="col-xl-6 col-lg-8 justify-content-center justify-content-lg-start">
-                    <div class="fs-15 text-dark-gray">We have a selection of over 50 tour programs! <a href="demo-travel-agency-destinations.html" class="text-base-color fw-500 text-decoration-line-bottom">Popular Destinations</a></div>
+                    <div class="fs-15 text-dark-gray">Beragam <a href="{{ url('paket') }}" class="text-base-color fw-500 text-decoration-line-bottom">PAKET</a> Umroh & Haji terbaik untuk perjalanan ibadah Anda.</div>
                 </div>
                 <div class="col-xl-6 col-lg-4 text-end d-none d-lg-flex">
                     <a href="{{ $whatsappUrl($settings['kontak_telepon'] ?? '') }}" class="widget fs-15 text-dark-gray text-dark-gray-hover"><i class="fa-brands fa-whatsapp text-base-color"></i> {{ $settings['kontak_telepon'] }}</a>
