@@ -29,7 +29,7 @@
         <!-- end instagram -->
         <div class="row align-items-center">
             <div class="col-xl-3 col-sm-6 text-center text-sm-start last-paragraph-no-margin fs-15 text-light order-3 order-md-1">
-                <p>&COPY; Copyright 2026 <a href="/" target="_blank" class="text-light text-light-hover text-decoration-line-bottom fw-600">King Emran</a></p>
+                <p>&COPY; Copyright 2026 <a href="/" target="_blank" class="text-light text-light-hover text-decoration-line-bottom fw-600">King Emran International</a></p>
             </div>
             <div class="col-xl-6 text-center lg-mt-10px sm-mt-0 sm-mb-15px order-1 order-xl-2 order-md-3">
                 <ul class="footer-navbar">
